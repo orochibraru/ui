@@ -59,32 +59,38 @@ a search box never gets a login suggestion.
 
 Under `@orochibraru/ui/blocks/<name>`:
 
-| Block              | What it does                                                                |
-| ------------------ | --------------------------------------------------------------------------- |
-| `auth-shell`       | Centered sign-in layout: heading, optional `brand` and `footer` snippets.   |
-| `copy-field`       | Monospace value with a copy button and a promise toast.                     |
-| `document-title`   | `<title>` from the page title, suffixed with `appName`.                     |
-| `empty-state`      | Icon, title, subtitle and an action slot for an empty list.                 |
-| `error-page`       | Status, message and error id from `page`, with a link to `homeHref`.        |
-| `fab`              | Floating action button above the phone tab bar, with a haptic tap.          |
-| `icon-button`      | Round icon button with a tooltip that doubles as its accessible name.       |
-| `install-prompt`   | One-time PWA install sheet: native prompt, iOS steps or browser menu steps. |
-| `nav-cards`        | Phone-only list of a section's tabs as cards: icon, label, description.     |
-| `option-group`     | Radio cards for a settings choice, with an icon or a `swatch` snippet each. |
-| `responsive-sheet` | A dialog on desktop, a bottom drawer under 768px.                           |
-| `setting-switch`   | Labelled switch row for settings forms, posting `name=true` when on.        |
-| `stat-card`        | Glass card with an icon, a value and a hint, optionally a link.             |
-| `tab-nav`          | Pill tab bar of links, the current page's tab highlighted.                  |
-| `tab-section`      | Layout for a tabbed section: tabs on desktop, nav cards on phones.          |
-| `theme-picker`     | System, light and dark as radio cards, for an appearance page.              |
-| `theme-toggle`     | System, light and dark as a compact icon toggle, for an app bar or menu.    |
-| `top-loading-bar`  | Progress bar during SvelteKit navigations, safe-area aware.                 |
+| Block                 | What it does                                                                |
+| --------------------- | --------------------------------------------------------------------------- |
+| `accent-toggle`       | The accent presets: swatch strip on desktop, labelled rows on phones.       |
+| `auth-shell`          | Centered sign-in layout: heading, optional `brand` and `footer` snippets.   |
+| `bottom-nav`          | Phone tab bar of top-level destinations, the current one lit.               |
+| `copy-field`          | Monospace value with a copy button and a promise toast.                     |
+| `document-title`      | `<title>` from the page title, suffixed with `appName`.                     |
+| `empty-state`         | Icon, title, subtitle and an action slot for an empty list.                 |
+| `error-page`          | Status, message and error id from `page`, with a link to `homeHref`.        |
+| `fab`                 | Floating action button above the phone tab bar, with a haptic tap.          |
+| `icon-button`         | Round icon button with a tooltip that doubles as its accessible name.       |
+| `install-prompt`      | One-time PWA install sheet: native prompt, iOS steps or browser menu steps. |
+| `nav-cards`           | Phone-only list of a section's tabs as cards: icon, label, description.     |
+| `new-password-fields` | New password and its confirmation: reveal, strength meter, rules.           |
+| `option-group`        | Radio cards for a settings choice, with an icon or a `swatch` snippet each. |
+| `otp-field`           | One-time code: digits only, SMS autofill, posted as one `code` field.       |
+| `password-input`      | Password field with a button to reveal it.                                  |
+| `responsive-sheet`    | A dialog on desktop, a bottom drawer under 768px.                           |
+| `setting-switch`      | Labelled switch row for settings forms, posting `name=true` when on.        |
+| `stat-card`           | Glass card with an icon, a value and a hint, optionally a link.             |
+| `tab-nav`             | Pill tab bar of links, the current page's tab highlighted.                  |
+| `tab-section`         | Layout for a tabbed section: tabs on desktop, nav cards on phones.          |
+| `theme-picker`        | System, light and dark as radio cards, for an appearance page.              |
+| `theme-toggle`        | System, light and dark: icon strip on desktop, three rows on phones.        |
+| `top-loading-bar`     | Progress bar during SvelteKit navigations, safe-area aware.                 |
 
-Blocks with built-in copy (`copy-field`, `error-page`, `install-prompt`,
-`theme-picker`, `theme-toggle`) take a `messages` prop. Its keys override the
-English defaults one by one, which is how a French or translated app uses them.
-Blocks never set the page title, except `tab-section`, which owns its section's
-title: the app calls `setPageTitle` itself.
+Blocks with built-in copy (`accent-toggle`, `copy-field`, `error-page`,
+`install-prompt`, `new-password-fields`, `password-input`, `theme-picker`,
+`theme-toggle`) take a `messages` prop. Its keys override the English defaults
+one by one, which is how a French or translated app uses them. Blocks never set
+the page title, except `tab-section`, which owns its section's title: the app
+calls `setPageTitle` itself.
 
 ### Tabbed sections
 
@@ -118,6 +124,9 @@ them, which apps put in their root layout.
 - `@orochibraru/ui/appearance`: `applyAppearance` and `appearanceBootScript`
   apply a saved accent, theme, dark variant, font and corner style to `<html>`,
   the boot script before first paint.
+- `@orochibraru/ui/password`: `passwordRules` and `passwordScore`, the rules a
+  new password must pass and a 0 to 4 strength, the same on the form and the
+  server. `new-password-fields` renders them; `ruleLabels` translates them.
 - `@orochibraru/ui/haptics`: `haptic("tap" | "success" | "error")`, a no-op
   where vibration isn't supported.
 
@@ -157,9 +166,21 @@ bun install
 bun run dev
 ```
 
-The dev server shows every primitive and block on one page, with an accent and
-dark mode switch. `bun run check`, `bun run test` and `bun run build` are the
-gates; `build` packages `dist/` and runs publint.
+The dev server is the docs site: a page per block, primitive and module, with
+the component live and the code that renders it. That code is the example file
+itself, its `#lib` imports rewritten to the package subpaths, so the two can't
+drift apart. A file named `<slug>.<name>` next to an example is a companion,
+shown after it: the layout, action or page an app needs for what the preview
+can't hold. An example without a script is a note for the preview only.
+
+For AI tools, the site serves `/llms.txt` (an index linking each component's
+Markdown at `/<group>/<slug>.md`), `/llms-full.txt` (the README and every
+component in one file) and an MCP server at `/mcp` (streamable HTTP, stateless)
+with `get_setup`, `list_components`, `search_components` and `get_component`.
+All of it reads the same examples the pages show.
+
+`bun run check`, `bun run test` and `bun run build` are the gates; `build`
+packages `dist/` and runs publint.
 
 New upstream components come from the shadcn-svelte CLI (`components.json` is
 set up), followed by `node_modules/.bin/tailwint --fix` on the new files. The

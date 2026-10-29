@@ -31,6 +31,10 @@
 			"types": "./dist/toast.d.ts",
 			"default": "./dist/toast.js"
 		},
+		"./password": {
+			"types": "./dist/password.d.ts",
+			"default": "./dist/password.js"
+		},
 		"./haptics": {
 			"types": "./dist/haptics.d.ts",
 			"default": "./dist/haptics.js"
@@ -83,6 +87,7 @@
 	"devDependencies": {
 		"@happy-dom/global-registrator": "21.0.4",
 		"@j178/prek": "0.5.7",
+		"@modelcontextprotocol/sdk": "1.32.2",
 		"@sveltejs/kit": "3.1.0",
 		"@sveltejs/package": "3.0.1",
 		"@sveltejs/vite-plugin-svelte": "7.3.1",
@@ -93,12 +98,14 @@
 		"oxlint": "1.90.0",
 		"oxlint-tsgolint": "7.0.2005",
 		"publint": "0.3.25",
+		"shiki": "4.5.0",
 		"svelte": "5.57.3",
 		"svelte-check": "4.7.7",
 		"tailwindcss": "4.3.3",
 		"tailwint": "1.1.16",
 		"typescript": "6.0.3",
-		"vite": "8.3.5"
+		"vite": "8.3.5",
+		"zod": "4.6.7"
 	},
 	"keywords": [
 		"svelte",

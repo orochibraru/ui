@@ -3,6 +3,7 @@
 	import MoonIcon from "@lucide/svelte/icons/moon";
 	import SunIcon from "@lucide/svelte/icons/sun";
 	import { setMode, userPrefersMode } from "mode-watcher";
+	import { MediaQuery } from "svelte/reactivity";
 
 	import * as ToggleGroup from "#lib/components/ui/toggle-group/index.js";
 
@@ -27,6 +28,7 @@
 		messages = {},
 	}: Props = $props();
 
+	const desktop = new MediaQuery("(min-width: 768px)");
 	const text = $derived({ ...defaultMessages, ...messages });
 	const themes = $derived([
 		{ value: "system", label: text.system, icon: MonitorSmartphoneIcon },
@@ -47,7 +49,9 @@
 <ToggleGroup.Root
 	type="single"
 	variant="outline"
+	orientation={desktop.current ? "horizontal" : "vertical"}
 	aria-label={text.label}
+	class="max-md:w-full"
 	bind:value={() => value, pick}
 >
 	{#each themes as theme (theme.value)}
@@ -55,9 +59,10 @@
 			value={theme.value}
 			aria-label={theme.label}
 			title={theme.label}
-			class="size-11 md:size-9"
+			class="max-md:h-12 max-md:w-full max-md:justify-start max-md:gap-3 max-md:px-4 md:size-9"
 		>
 			<theme.icon class="size-4" />
+			<span class="md:hidden">{theme.label}</span>
 		</ToggleGroup.Item>
 	{/each}
 </ToggleGroup.Root>
