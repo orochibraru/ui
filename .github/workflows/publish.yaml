@@ -171,6 +171,10 @@ jobs:
           RELEASED: ${{ steps.releaser.outputs.version }}
           EXPECTED: ${{ needs.version.outputs.version }}
         run: |
+          if [ -z "$RELEASED" ] && git ls-remote --exit-code --tags origin "refs/tags/v$EXPECTED" >/dev/null; then
+            echo "v$EXPECTED was already released by an earlier attempt of this run."
+            exit 0
+          fi
           echo "::error::releaser released '$RELEASED', but npm got '$EXPECTED'."
           exit 1
 
