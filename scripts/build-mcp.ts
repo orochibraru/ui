@@ -16,7 +16,7 @@ const content: Content = {
 	version: (await Bun.file(`${root}package.json`).json()).version,
 	readme: await Bun.file(`${root}README.md`).text(),
 	files: {
-		...(await read("*", "src/docs/examples", "examples/")),
+		...(await read("**/*", "src/docs/examples", "examples/")),
 		...(await read("**/*", "src/routes/section", "routes/section/")),
 	},
 };

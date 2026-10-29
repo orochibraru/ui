@@ -38,7 +38,7 @@
 {#if visible}
 	<div
 		class="pointer-events-none fixed inset-x-0 top-0 z-60 h-0.5"
-		style="top: env(safe-area-inset-top)"
+		style="top: var(--safe-top)"
 		role="progressbar"
 		aria-label={label}
 		aria-valuemin={0}

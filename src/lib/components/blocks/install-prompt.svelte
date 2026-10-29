@@ -31,21 +31,27 @@
 		brand?: Snippet;
 		title?: string;
 		messages?: Partial<typeof defaultMessages>;
+		open?: boolean;
 	}
 
-	const {
+	let {
 		appName,
 		storageKey,
 		brand,
 		title = `Install ${appName}`,
 		messages = {},
+		open = $bindable(false),
 	}: Props = $props();
 
 	const text = $derived({ ...defaultMessages, ...messages });
 
-	let open = $state(false);
 	let mode = $state<"native" | "apple" | "menu">("native");
-	let deferred: InstallPromptEvent | undefined;
+	let deferred = $state.raw<InstallPromptEvent>();
+	let apple = $state(false);
+
+	const shownMode = $derived(
+		mode === "native" && !deferred ? (apple ? "apple" : "menu") : mode,
+	);
 
 	function alreadyPrompted(): boolean {
 		try {
@@ -69,6 +75,9 @@
 	}
 
 	onMount(() => {
+		apple =
+			/iPhone|iPad/.test(navigator.userAgent) ||
+			(/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 		const standalone =
 			matchMedia("(display-mode: standalone)").matches ||
 			("standalone" in navigator && navigator.standalone === true);
@@ -76,9 +85,6 @@
 		if (standalone || !touch || alreadyPrompted()) {
 			return;
 		}
-		const apple =
-			/iPhone|iPad/.test(navigator.userAgent) ||
-			(/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
 		if (apple) {
 			const timer = setTimeout(() => show("apple"), 1500);
 			return () => clearTimeout(timer);
@@ -128,7 +134,7 @@
 				{@render brand()}
 			</div>
 		{/if}
-		{#if mode === "native"}
+		{#if shownMode === "native"}
 			<Button class="glow h-12 rounded-xl text-base" onclick={install}>
 				<DownloadIcon />
 				{text.install}
@@ -140,7 +146,7 @@
 			>
 		{:else}
 			<ol class="flex flex-col gap-3 text-sm">
-				{#if mode === "apple"}
+				{#if shownMode === "apple"}
 					{@render step(ShareIcon, text.appleShare)}
 					{@render step(SquarePlusIcon, text.appleAdd)}
 				{:else}

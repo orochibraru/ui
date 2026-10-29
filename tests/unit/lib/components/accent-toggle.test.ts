@@ -24,10 +24,10 @@ describe("AccentToggle", () => {
 		const onchange = mock((_accent: string) => undefined);
 		const { getByRole } = render(AccentToggle, {
 			onchange,
-			messages: { blue: "Bleu" },
+			messages: { bordeaux: "Lie-de-vin" },
 		});
-		await fireEvent.click(getByRole("radio", { name: "Bleu" }));
+		await fireEvent.click(getByRole("radio", { name: "Lie-de-vin" }));
 		expect(onchange).not.toHaveBeenCalled();
-		expect(getByRole("radio", { name: "Bleu" }).dataset.state).toBe("on");
+		expect(getByRole("radio", { name: "Lie-de-vin" }).dataset.state).toBe("on");
 	});
 });

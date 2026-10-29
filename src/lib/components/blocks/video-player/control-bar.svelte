@@ -58,10 +58,12 @@
 </script>
 
 <div
-	class="glass pointer-events-auto mx-2 mb-2 rounded-2xl px-3 pt-1.5 pb-1 sm:mx-3 sm:mb-3"
+	class="pointer-events-auto mx-3 mb-3 flex flex-col gap-2 rounded-3xl bg-linear-to-b from-white/12 to-black/55 px-4 pt-3.5 pb-2.5 text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.15),0_24px_60px_-12px_rgb(0_0_0/0.7)] ring-1 ring-white/10 backdrop-blur-2xl backdrop-saturate-150 sm:mx-auto sm:mb-4 sm:w-[min(64rem,calc(100%-3rem))] sm:px-5"
 >
-	<div class="flex items-center gap-3 text-xs font-medium tabular">
-		<span class="w-11 shrink-0">{formatTime(currentTime)}</span>
+	<div
+		class="flex items-center gap-3 text-xs font-medium text-white/80 tabular"
+	>
+		<span class="w-12 shrink-0">{formatTime(currentTime)}</span>
 		<div class="min-w-0 flex-1">
 			<ScrubBar
 				{currentTime}
@@ -72,54 +74,58 @@
 				onseek={player.seekTo}
 			/>
 		</div>
-		<span class="text-muted-foreground w-11 shrink-0 text-right"
+		<span class="w-12 shrink-0 text-right text-white/55"
 			>-{formatTime(Math.max(0, player.duration - currentTime))}</span
 		>
 	</div>
-	<div class="flex items-center gap-0.5">
+	<div class="flex items-center gap-2 sm:gap-3">
 		<ControlButton
 			label={playLabel}
 			shortcut="K"
 			{portalTarget}
 			onclick={player.togglePlay}
-			class="bg-primary text-primary-foreground hover:bg-primary/85 hover:text-primary-foreground dark:hover:bg-primary/85 glow"
+			class="size-10 bg-white text-black shadow-[0_0_20px_rgb(255_255_255/0.25)] transition-transform hover:scale-105 hover:bg-white/85 hover:text-black md:size-10 dark:hover:bg-white/85"
 		>
 			{#if player.ended}
 				<RotateCcwIcon />
 			{:else if paused}
-				<PlayIcon class="size-5 fill-current" />
+				<PlayIcon class="fill-current" />
 			{:else}
-				<PauseIcon class="size-5 fill-current" />
+				<PauseIcon class="fill-current" />
 			{/if}
 		</ControlButton>
-		<ControlButton
-			label={silent ? text.unmute : text.mute}
-			shortcut="M"
-			{portalTarget}
-			onclick={player.toggleMute}
+		<div class="flex items-center gap-1.5">
+			<ControlButton
+				label={silent ? text.unmute : text.mute}
+				shortcut="M"
+				{portalTarget}
+				onclick={player.toggleMute}
+			>
+				{#if silent}
+					<VolumeXIcon />
+				{:else if player.volume < 0.5}
+					<Volume1Icon />
+				{:else}
+					<Volume2Icon />
+				{/if}
+			</ControlButton>
+			<input
+				type="range"
+				min="0"
+				max="1"
+				step="0.05"
+				value={player.muted ? 0 : player.volume}
+				aria-label={text.volume}
+				oninput={(event) => {
+					player.volume = Number(event.currentTarget.value);
+					player.muted = player.volume === 0;
+				}}
+				class="pointer-fine:block hidden h-1 w-20 cursor-pointer appearance-none rounded-full bg-white/20 accent-white [&::-moz-range-thumb]:size-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white [&::-webkit-slider-thumb]:size-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+			/>
+		</div>
+		<div
+			class="ml-auto flex items-center gap-0.5 rounded-full bg-white/5 p-1 ring-1 ring-white/10 sm:gap-1"
 		>
-			{#if silent}
-				<VolumeXIcon />
-			{:else if player.volume < 0.5}
-				<Volume1Icon />
-			{:else}
-				<Volume2Icon />
-			{/if}
-		</ControlButton>
-		<input
-			type="range"
-			min="0"
-			max="1"
-			step="0.05"
-			value={player.muted ? 0 : player.volume}
-			aria-label={text.volume}
-			oninput={(event) => {
-				player.volume = Number(event.currentTarget.value);
-				player.muted = player.volume === 0;
-			}}
-			class="accent-primary pointer-fine:block hidden h-1 w-20 cursor-pointer"
-		/>
-		<div class="ml-auto flex items-center gap-0.5">
 			{#if subtitles.length > 0}
 				<OptionMenu
 					label={text.subtitles}

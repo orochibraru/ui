@@ -23,4 +23,24 @@ describe("OtpField", () => {
 			container.querySelectorAll('[data-slot="input-otp-slot"]'),
 		).toHaveLength(6);
 	});
+
+	test("labels the code, shows its error and centres both", () => {
+		const { container, getByText } = render(OtpField, {
+			label: "6-digit code",
+			error: "That code expired.",
+			align: "center",
+		});
+		const input = container.querySelector("input") as HTMLInputElement;
+		const label = getByText("6-digit code");
+		expect(label.getAttribute("for")).toBe(input.id);
+		expect(getByText("That code expired.")).toBeTruthy();
+		expect(container.querySelector('[data-slot="field"]')?.className).toContain(
+			"items-center",
+		);
+		expect(
+			container
+				.querySelector('[data-slot="input-otp-slot"]')
+				?.getAttribute("aria-invalid"),
+		).toBe("true");
+	});
 });

@@ -38,6 +38,18 @@
 			"types": "./dist/password.d.ts",
 			"default": "./dist/password.js"
 		},
+		"./server/logger": {
+			"types": "./dist/server/logger.d.ts",
+			"default": "./dist/server/logger.js"
+		},
+		"./server/telemetry": {
+			"types": "./dist/server/telemetry.d.ts",
+			"default": "./dist/server/telemetry.js"
+		},
+		"./server/hooks": {
+			"types": "./dist/server/hooks.d.ts",
+			"default": "./dist/server/hooks.js"
+		},
 		"./haptics": {
 			"types": "./dist/haptics.d.ts",
 			"default": "./dist/haptics.js"
@@ -45,6 +57,10 @@
 		"./page-title": {
 			"types": "./dist/page-title.svelte.d.ts",
 			"svelte": "./dist/page-title.svelte.js"
+		},
+		"./components/*": {
+			"types": "./dist/components/kit/*.svelte.d.ts",
+			"svelte": "./dist/components/kit/*.svelte"
 		},
 		"./blocks/*": {
 			"types": "./dist/components/blocks/*.svelte.d.ts",
@@ -72,13 +88,32 @@
 		"prepare": "svelte-kit sync || true && prek install --allow-missing-config || true"
 	},
 	"peerDependencies": {
+		"@opentelemetry/context-async-hooks": "^3.0.0",
+		"@opentelemetry/exporter-trace-otlp-proto": "^0.300.0",
+		"@opentelemetry/resources": "^3.0.0",
+		"@opentelemetry/sdk-trace": "^3.0.0",
 		"@sveltejs/kit": "^3.0.0",
 		"svelte": "^5.57.0",
 		"tailwindcss": "^4.3.0"
 	},
+	"peerDependenciesMeta": {
+		"@opentelemetry/context-async-hooks": {
+			"optional": true
+		},
+		"@opentelemetry/exporter-trace-otlp-proto": {
+			"optional": true
+		},
+		"@opentelemetry/resources": {
+			"optional": true
+		},
+		"@opentelemetry/sdk-trace": {
+			"optional": true
+		}
+	},
 	"dependencies": {
 		"@internationalized/date": "^3.12.4",
 		"@lucide/svelte": "^1.64.0",
+		"@opentelemetry/api": "^1.10.0",
 		"bits-ui": "^2.20.2",
 		"cn": "^0.5.0",
 		"mode-watcher": "^1.1.0",
@@ -92,6 +127,10 @@
 		"@happy-dom/global-registrator": "21.0.4",
 		"@j178/prek": "0.5.7",
 		"@modelcontextprotocol/sdk": "1.32.2",
+		"@opentelemetry/context-async-hooks": "3.0.0",
+		"@opentelemetry/exporter-trace-otlp-proto": "0.300.0",
+		"@opentelemetry/resources": "3.0.0",
+		"@opentelemetry/sdk-trace": "3.0.0",
 		"@sveltejs/adapter-bun": "1.0.0",
 		"@sveltejs/kit": "3.1.0",
 		"@sveltejs/package": "3.0.1",

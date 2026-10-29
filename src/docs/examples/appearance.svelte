@@ -9,7 +9,7 @@
 		applyAppearance(
 			document.documentElement,
 			{
-				accent: document.documentElement.dataset.accent ?? "blue",
+				accent: document.documentElement.dataset.accent ?? "bordeaux",
 				theme: "system",
 				darkVariant: "default",
 				font: "default",

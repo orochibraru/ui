@@ -28,6 +28,31 @@ describe("PasswordInput", () => {
 	});
 });
 
+describe("PasswordInput with a label", () => {
+	afterEach(() => cleanup());
+
+	test("wires its label and points the field at its error", () => {
+		const { container, getByText } = render(WithTooltips, {
+			component: PasswordInput,
+			innerProps: { label: "Password", error: "Too short." },
+		});
+		const input = container.querySelector("input") as HTMLInputElement;
+		expect(getByText("Password").getAttribute("for")).toBe(input.id);
+		expect(input.getAttribute("aria-invalid")).toBe("true");
+		expect(input.getAttribute("aria-describedby")).toBe(`${input.id}-error`);
+		expect(getByText("Too short.")).toBeTruthy();
+	});
+
+	test("renders no frame without a label, for Input to frame it", () => {
+		const { container } = render(WithTooltips, {
+			component: PasswordInput,
+			innerProps: { id: "framed-elsewhere" },
+		});
+		expect(container.querySelector('[data-slot="field"]') === null).toBe(true);
+		expect(container.querySelector("input")?.id).toBe("framed-elsewhere");
+	});
+});
+
 describe("NewPasswordFields", () => {
 	afterEach(() => cleanup());
 

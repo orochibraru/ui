@@ -1,4 +1,4 @@
-export type Group = "blocks" | "primitives" | "modules";
+export type Group = "blocks" | "components" | "primitives" | "modules";
 
 export const categories = [
 	"Actions",
@@ -7,10 +7,12 @@ export const categories = [
 	"Overlays",
 	"Feedback",
 	"Display",
+	"Charts",
 	"Layout",
 	"Appearance",
 	"Media",
 	"Utilities",
+	"Server",
 ] as const;
 
 export type Category = (typeof categories)[number];
@@ -25,12 +27,14 @@ export interface CatalogDoc {
 function docs(
 	entries: Record<string, [category: Category, description: string]>,
 ): CatalogDoc[] {
-	return Object.entries(entries).map(([slug, [category, description]]) => ({
-		slug,
-		name: slug.charAt(0).toUpperCase() + slug.slice(1).replaceAll("-", " "),
-		description,
-		category,
-	}));
+	return Object.entries(entries)
+		.toSorted(([a], [b]) => a.localeCompare(b))
+		.map(([slug, [category, description]]) => ({
+			slug,
+			name: slug.charAt(0).toUpperCase() + slug.slice(1).replaceAll("-", " "),
+			description,
+			category,
+		}));
 }
 
 /** Every documented block, primitive and module, without anything that needs Svelte or Vite, so the MCP server can bundle it. */
@@ -53,6 +57,10 @@ export const catalog: Record<
 			"bottom-nav": [
 				"Navigation",
 				"The phone tab bar: top-level destinations, the current one lit.",
+			],
+			"command-palette": [
+				"Overlays",
+				"A ⌘K search over pages and actions: a dialog on desktop, a tall drawer on phones.",
 			],
 			"copy-field": [
 				"Forms",
@@ -115,6 +123,10 @@ export const catalog: Record<
 				"Display",
 				"Glass card with an icon, a value and a hint, optionally a link.",
 			],
+			stepper: [
+				"Navigation",
+				"A multi-step flow: labelled markers on desktop, a progress bar and the current step on phones.",
+			],
 			"tab-nav": [
 				"Navigation",
 				"Pill tab bar of links, the current page's tab highlighted.",
@@ -122,6 +134,14 @@ export const catalog: Record<
 			"tab-section": [
 				"Navigation",
 				"Tabbed section layout: tabs on desktop, nav cards on phones.",
+			],
+			"time-range-picker": [
+				"Charts",
+				"Time range presets, plus a custom range in a calendar popover or a phone drawer.",
+			],
+			"time-series-chart": [
+				"Charts",
+				"Line, area or bar chart over time: axes, readout, touch scrubbing and a data table.",
 			],
 			"theme-picker": ["Appearance", "System, light and dark as radio cards."],
 			"theme-toggle": [
@@ -135,6 +155,94 @@ export const catalog: Record<
 			"video-player": [
 				"Media",
 				"A video player: scrubbing, chapters, subtitles, speed, fullscreen, gestures and shortcuts.",
+			],
+		}),
+	},
+	components: {
+		label: "Components",
+		description:
+			"One import, data in: the everyday controls without assembling primitives.",
+		docs: docs({
+			"file-dropzone": [
+				"Forms",
+				"Drop or pick files, folders too: type and size limits, a list to review, posted with the form.",
+			],
+			breadcrumbs: [
+				"Navigation",
+				"A trail of pages from an array, collapsing the middle into a menu on phones.",
+			],
+			"confirm-dialog": [
+				"Overlays",
+				"Ask before acting: waits on an async confirm, a drawer on phones.",
+			],
+			menu: [
+				"Overlays",
+				"Actions from an array: a dropdown on desktop, a drawer of big rows on phones.",
+			],
+			pagination: [
+				"Navigation",
+				"Page numbers from a total and a page size, prev and next on phones.",
+			],
+			tabs: [
+				"Navigation",
+				"Tabs from an array, scrolling sideways when they run out of room.",
+			],
+			form: [
+				"Forms",
+				"Fields from an array, laid out and posted to a form action, with errors under each field.",
+			],
+			checkbox: [
+				"Forms",
+				"One checkbox with its label and description, the whole row tappable.",
+			],
+			"checkbox-list": [
+				"Forms",
+				"Options in, a labelled group of checkboxes out, posting every checked value.",
+			],
+			"radio-list": [
+				"Forms",
+				"Pick one option from a list or from cards, with a legend and errors.",
+			],
+			"segmented-control": [
+				"Forms",
+				"A single choice as equal segments that fold to icons when space runs out.",
+			],
+			switch: ["Forms", "A labelled switch row that posts true when on."],
+			accordion: [
+				"Display",
+				"Questions and answers from an array: plain text or a snippet per item.",
+			],
+			"avatar-group": [
+				"Display",
+				"Overlapping avatars with initials, a +N count and names in tooltips.",
+			],
+			"bar-list": [
+				"Charts",
+				"A ranked list with proportional bars, links and a show-more toggle.",
+			],
+			"data-table": [
+				"Display",
+				"Columns and rows in, a sortable table out: cards on phones, links per row.",
+			],
+			"date-field": [
+				"Forms",
+				"A date with its label: calendar in a popover, a drawer on phones, ISO value.",
+			],
+			select: [
+				"Forms",
+				"Options in, a labelled select out: searchable, and a drawer on phones.",
+			],
+			"status-badge": [
+				"Feedback",
+				"A status pill with a tone, a dot and an optional pulse for live states.",
+			],
+			textarea: [
+				"Forms",
+				"A multi-line field with its label, error and an optional character counter.",
+			],
+			input: [
+				"Forms",
+				"A text field with its label, description and error in one: passwords get a reveal button.",
 			],
 		}),
 	},
@@ -218,8 +326,21 @@ export const catalog: Record<
 	},
 	modules: {
 		label: "Modules",
-		description: "Helpers for toasts, titles, appearance and haptics.",
+		description:
+			"Helpers for toasts, titles, appearance and haptics, and the server side: logs, traces and hooks.",
 		docs: docs({
+			hooks: [
+				"Server",
+				"SvelteKit hooks: one log line per request, and unexpected errors logged, traced and given an id.",
+			],
+			logger: [
+				"Server",
+				"Scoped server logs as coloured text or JSON lines that carry the active trace id.",
+			],
+			telemetry: [
+				"Server",
+				"OpenTelemetry tracing over OTLP, with SvelteKit's own handle, load and action spans.",
+			],
 			appearance: [
 				"Appearance",
 				"Apply a saved accent, theme, font and corners to <html>.",
@@ -245,3 +366,60 @@ export const catalog: Record<
 export function isGroup(value: string): value is Group {
 	return Object.hasOwn(catalog, value);
 }
+
+/** Docs whose look on a phone is the point, so their page shows them in a phone frame too. */
+export const phoneFirst = new Set([
+	"components/file-dropzone",
+	"blocks/top-loading-bar",
+	"blocks/install-prompt",
+	"blocks/error-page",
+	"primitives/tabs",
+	"primitives/range-calendar",
+	"primitives/input-otp",
+	"primitives/calendar",
+	"components/textarea",
+	"components/switch",
+	"components/radio-list",
+	"components/input",
+	"components/checkbox-list",
+	"components/checkbox",
+	"components/bar-list",
+	"components/accordion",
+	"blocks/theme-picker",
+	"blocks/tab-section",
+	"blocks/tab-nav",
+	"blocks/stat-card",
+	"blocks/setting-switch",
+	"blocks/password-input",
+	"blocks/option-group",
+	"blocks/bottom-nav",
+	"blocks/auth-shell",
+	"blocks/accent-toggle",
+	"blocks/command-palette",
+	"blocks/fab",
+	"blocks/music-player",
+	"blocks/nav-cards",
+	"blocks/new-password-fields",
+	"blocks/otp-field",
+	"blocks/responsive-sheet",
+	"blocks/stepper",
+	"blocks/theme-toggle",
+	"blocks/time-range-picker",
+	"blocks/time-series-chart",
+	"blocks/video-player",
+	"components/breadcrumbs",
+	"components/confirm-dialog",
+	"components/data-table",
+	"components/date-field",
+	"components/form",
+	"components/menu",
+	"components/pagination",
+	"components/segmented-control",
+	"components/select",
+	"components/tabs",
+	"primitives/drawer",
+	"primitives/sheet",
+]);
+
+/** Phone-first docs best seen with the phone turned sideways, so their frame starts in landscape. */
+export const phoneLandscape = new Set(["blocks/video-player"]);

@@ -3,7 +3,7 @@
 	import { page } from "$app/state";
 	import ChevronDownIcon from "@lucide/svelte/icons/chevron-down";
 
-	import { type Group, groups } from "./registry.js";
+	import { type Group, siteGroups as groups } from "./registry.js";
 
 	const currentGroup = $derived(page.url.pathname.split("/")[1] ?? "");
 

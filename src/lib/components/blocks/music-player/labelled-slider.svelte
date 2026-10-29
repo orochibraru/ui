@@ -7,15 +7,13 @@
 		step: number;
 		label: string;
 		valueText: string;
-		onchange?: (value: number) => void;
-		oncommit?: (value: number) => void;
+		onchange: (value: number) => void;
 		orientation?: "horizontal" | "vertical";
 		disabled?: boolean;
 		class?: string;
 	}
 
-	const { value, label, valueText, onchange, oncommit, ...rest }: Props =
-		$props();
+	const { value, label, valueText, onchange, ...rest }: Props = $props();
 
 	let ref: HTMLElement | null = $state(null);
 
@@ -26,11 +24,4 @@
 	});
 </script>
 
-<Slider
-	bind:ref
-	type="single"
-	{value}
-	onValueChange={onchange}
-	onValueCommit={oncommit}
-	{...rest}
-/>
+<Slider bind:ref type="single" {value} onValueChange={onchange} {...rest} />

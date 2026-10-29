@@ -49,7 +49,7 @@ export function createMcpServer(content: Content): McpServer {
 				"Every block, primitive and module, one per line as group/slug (category): description.",
 			inputSchema: {
 				group: z
-					.enum(["blocks", "primitives", "modules"])
+					.enum(["blocks", "components", "primitives", "modules"])
 					.optional()
 					.describe("Only this group."),
 				category: z.enum(categories).optional().describe("Only this category."),
@@ -86,7 +86,11 @@ export function createMcpServer(content: Content): McpServer {
 			description:
 				"One component's docs: what it is, its import path and its usage code.",
 			inputSchema: {
-				slug: z.string().describe("The component's slug, like stat-card."),
+				slug: z
+					.string()
+					.describe(
+						"The component as group/slug from list_components, like components/select, or a slug that only one group has.",
+					),
 			},
 			annotations: { readOnlyHint: true },
 		},

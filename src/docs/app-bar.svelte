@@ -1,21 +1,13 @@
 <script lang="ts">
-	import { afterNavigate } from "$app/navigation";
 	import ChevronLeftIcon from "@lucide/svelte/icons/chevron-left";
-	import MenuIcon from "@lucide/svelte/icons/menu";
+	import SearchIcon from "@lucide/svelte/icons/search";
 
 	import IconButton from "#lib/components/blocks/icon-button.svelte";
-	import * as Sheet from "#lib/components/ui/sheet/index.js";
 	import { usePageTitle } from "#lib/page-title.svelte.js";
 
-	import DocsNav from "./docs-nav.svelte";
+	const { onsearch }: { onsearch: () => void } = $props();
 
 	const title = usePageTitle();
-
-	let menuOpen = $state(false);
-
-	afterNavigate(() => {
-		menuOpen = false;
-	});
 </script>
 
 <header
@@ -30,24 +22,7 @@
 		{/if}
 		<h1 class="truncate text-[1.0625rem] font-semibold">{title.current}</h1>
 		<div class="absolute top-1/2 right-1.5 -translate-y-1/2">
-			<IconButton
-				label="Components"
-				icon={MenuIcon}
-				onclick={() => (menuOpen = true)}
-			/>
+			<IconButton label="Search" icon={SearchIcon} onclick={onsearch} />
 		</div>
 	</div>
 </header>
-
-<Sheet.Root bind:open={menuOpen}>
-	<Sheet.Content side="left" class="w-[85vw] gap-0">
-		<Sheet.Header>
-			<Sheet.Title>Components</Sheet.Title>
-		</Sheet.Header>
-		<div
-			class="flex-1 overflow-y-auto px-3 pb-[max(1rem,env(safe-area-inset-bottom))]"
-		>
-			<DocsNav />
-		</div>
-	</Sheet.Content>
-</Sheet.Root>

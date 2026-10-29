@@ -255,12 +255,12 @@
 
 		<div
 			class={cn(
-				"pointer-events-none absolute inset-0 flex flex-col pt-safe-top pr-safe-right pb-safe-bottom pl-safe-left transition-[opacity,visibility] duration-200",
+				"pointer-events-none absolute inset-0 flex flex-col bg-linear-to-t from-black/60 via-transparent to-black/60 pt-safe-top pr-safe-right pb-safe-bottom pl-safe-left transition-[opacity,visibility] duration-200",
 				controlsShown && !player.failed ? "opacity-100" : "invisible opacity-0",
 			)}
 		>
 			{#if title}
-				<div class="bg-linear-to-b from-black/60 to-transparent px-4 pt-3 pb-8">
+				<div class="px-5 pt-4">
 					<p class="truncate font-semibold text-white drop-shadow">
 						{title}
 					</p>

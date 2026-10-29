@@ -2,7 +2,7 @@ import { version } from "../../package.json";
 import readme from "../../README.md?raw";
 import type { Content } from "./content.js";
 
-const examples = import.meta.glob<string>("./examples/*", {
+const examples = import.meta.glob<string>("./examples/**/*", {
 	eager: true,
 	query: "?raw",
 	import: "default",

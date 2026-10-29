@@ -5,7 +5,7 @@ import { docMarkdown, findBySlug } from "../../../docs/content.js";
 import { content } from "../../../docs/sources.server.js";
 
 export function GET({ params }) {
-	const found = findBySlug(params.slug);
+	const found = findBySlug(`${params.group}/${params.slug}`);
 	if (!isGroup(params.group) || found?.group !== params.group) {
 		error(404, "Not found");
 	}

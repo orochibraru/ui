@@ -1,5 +1,12 @@
-<p class="text-muted-foreground text-sm">
-	Look at this browser tab: the root layout renders it once and every page's
-	<code>setPageTitle</code> feeds it. A title that already names the app is kept as
-	is, an empty one shows the app name alone.
-</p>
+<script lang="ts">
+	import Input from "#lib/components/kit/input.svelte";
+	import { usePageTitle } from "#lib/page-title.svelte.js";
+
+	const title = usePageTitle();
+</script>
+
+<Input
+	label="Page title"
+	description="The header above and this browser tab follow as you type."
+	bind:value={title.current}
+/>

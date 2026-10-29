@@ -24,13 +24,11 @@
 	closeButtonAriaLabel="Dismiss"
 	swipeDirections={desktop.current ? ["right"] : ["top", "left", "right"]}
 	offset={{
-		top: desktop.current
-			? "4.75rem"
-			: "calc(env(safe-area-inset-top) + 4.25rem)",
+		top: desktop.current ? "4.75rem" : "calc(var(--safe-top) + 4.25rem)",
 		right: "1.5rem",
 	}}
 	mobileOffset={{
-		top: "calc(env(safe-area-inset-top) + 4.25rem)",
+		top: "calc(var(--safe-top) + 4.25rem)",
 		left: "0.75rem",
 		right: "0.75rem",
 	}}

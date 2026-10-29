@@ -43,7 +43,7 @@
 							size="icon"
 							aria-label={label}
 							class={cn(
-								"size-11 rounded-full md:size-9 [&_svg]:size-5",
+								"size-11 rounded-full hover:bg-white/15 hover:text-white md:size-9 dark:hover:bg-white/15 [&_svg:not([class*='size-'])]:size-5",
 								active && "text-primary",
 							)}
 						>

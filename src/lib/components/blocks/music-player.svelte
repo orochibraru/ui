@@ -21,8 +21,8 @@
 	import { haptic } from "#lib/haptics.js";
 
 	import { formatTime } from "./music-player/format-time.js";
-	import LabelledSlider from "./music-player/labelled-slider.svelte";
 	import VolumeControl from "./music-player/volume-control.svelte";
+	import ScrubBar from "./video-player/scrub-bar.svelte";
 
 	const defaultMessages = {
 		player: "Music player",
@@ -176,7 +176,7 @@
 {#if track}
 	<section
 		aria-label={text.player}
-		class="glass grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 rounded-3xl p-3 [grid-template-areas:'meta_volume'_'seek_seek'_'controls_controls'] md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:gap-x-6 md:px-4 md:[grid-template-areas:'meta_controls_volume'_'meta_seek_volume']"
+		class="glass grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 rounded-3xl p-4 [grid-template-areas:'meta_volume'_'seek_seek'_'controls_controls'] md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:gap-x-6 md:px-6 md:py-5 md:[grid-template-areas:'meta_controls_volume'_'meta_seek_volume']"
 	>
 		<div class="flex min-w-0 items-center gap-3 [grid-area:meta]">
 			{#if track.artwork}
@@ -206,16 +206,17 @@
 			<span class="text-muted-foreground tabular min-w-10 text-xs">
 				{formatTime(currentTime)}
 			</span>
-			<LabelledSlider
-				class="flex-1"
-				value={seekable ? currentTime : 0}
-				max={seekable ? duration : 1}
-				step={1}
-				disabled={!seekable}
-				label={text.seek}
-				valueText={`${formatTime(currentTime)} / ${formatTime(duration)}`}
-				oncommit={(value) => (currentTime = value)}
-			/>
+			<div class="min-w-0 flex-1">
+				<ScrubBar
+					variant="surface"
+					{currentTime}
+					duration={seekable ? duration : 0}
+					bufferedEnd={0}
+					chapters={[]}
+					label={text.seek}
+					onseek={(time) => (currentTime = time)}
+				/>
+			</div>
 			<span class="text-muted-foreground tabular min-w-10 text-right text-xs">
 				{formatTime(duration)}
 			</span>

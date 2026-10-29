@@ -17,7 +17,7 @@
 	const { player, paused, text }: Props = $props();
 
 	const side =
-		"bg-chrome text-foreground ring-border pointer-events-auto flex size-11 items-center justify-center rounded-full ring-1 backdrop-blur-xl transition-transform active:scale-90 sm:size-14";
+		"pointer-events-auto flex size-14 items-center justify-center rounded-full bg-black/25 text-white ring-1 ring-white/10 backdrop-blur-md transition hover:scale-105 hover:bg-black/45 active:scale-90 [&_svg]:size-7";
 </script>
 
 <div class="flex items-center justify-center gap-8 sm:gap-12">
@@ -27,20 +27,20 @@
 		class={side}
 		onclick={() => player.seek(-SEEK_SECONDS)}
 	>
-		<RotateCcwIcon class="size-5 sm:size-6" />
+		<RotateCcwIcon />
 	</button>
 	<button
 		type="button"
 		aria-label={player.ended ? text.replay : paused ? text.play : text.pause}
-		class="bg-primary text-primary-foreground glow pointer-events-auto flex size-14 items-center justify-center rounded-full transition-transform active:scale-90 sm:size-18"
+		class="pointer-events-auto flex size-16 items-center justify-center rounded-full bg-black/40 text-white shadow-lg ring-1 ring-white/20 backdrop-blur-md transition hover:scale-105 hover:bg-black/55 active:scale-90 sm:size-18 [&_svg]:size-11 sm:[&_svg]:size-12"
 		onclick={player.togglePlay}
 	>
 		{#if player.ended}
-			<RotateCcwIcon class="size-7 sm:size-8" />
+			<RotateCcwIcon />
 		{:else if paused}
-			<PlayIcon class="size-7 fill-current sm:size-8" />
+			<PlayIcon class="fill-current" />
 		{:else}
-			<PauseIcon class="size-7 fill-current sm:size-8" />
+			<PauseIcon class="fill-current" />
 		{/if}
 	</button>
 	<button
@@ -49,6 +49,6 @@
 		class={side}
 		onclick={() => player.seek(SEEK_SECONDS)}
 	>
-		<RotateCwIcon class="size-5 sm:size-6" />
+		<RotateCwIcon />
 	</button>
 </div>

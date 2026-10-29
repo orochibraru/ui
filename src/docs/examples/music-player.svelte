@@ -3,19 +3,19 @@
 
 	const tracks = [
 		{
-			src: "https://upload.wikimedia.org/wikipedia/commons/0/03/Music_to_Delight_%28ISRC_USUAN1200023%29.mp3",
-			title: "Music to Delight",
-			artist: "Kevin MacLeod",
+			src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Gymnopedie_No._1_%28ISRC_USUAN1100787%29.mp3",
+			title: "Gymnopédie No. 1",
+			artist: "Erik Satie, played by Kevin MacLeod",
 		},
 		{
-			src: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Music_Box_Theme_%28ISRC_USUAN1100417%29.mp3",
-			title: "Music Box Theme",
-			artist: "Kevin MacLeod",
+			src: "https://upload.wikimedia.org/wikipedia/commons/8/82/Nocturne_in_E_flat_major%2C_Op._9_no._2.mp3",
+			title: "Nocturne in E-flat major, Op. 9 No. 2",
+			artist: "Frédéric Chopin",
 		},
 		{
-			src: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Industrial_Music_Box_%28ISRC_USUAN1100812%29.mp3",
-			title: "Industrial Music Box",
-			artist: "Kevin MacLeod",
+			src: "https://upload.wikimedia.org/wikipedia/commons/6/63/Clair_de_Lune_-_Wright_Brass_-_United_States_Air_Force_Band_of_Flight.mp3",
+			title: "Clair de Lune",
+			artist: "Claude Debussy, US Air Force Band of Flight",
 		},
 	];
 
@@ -23,9 +23,11 @@
 	let paused = $state(true);
 </script>
 
-<p class="text-muted-foreground text-sm">
-	It renders in flow, as wide as its container: wrap it in a fixed bar to dock
-	it at the bottom of the screen. Tracks by Kevin MacLeod, CC BY 3.0, from
-	Wikimedia Commons.
-</p>
-<MusicPlayer {tracks} bind:index bind:paused />
+<div class="grid gap-5">
+	<p class="text-muted-foreground text-sm">
+		It renders in flow, as wide as its container: wrap it in a fixed bar to dock
+		it at the bottom of the screen. From Wikimedia Commons: Satie by Kevin
+		MacLeod under CC BY 3.0, Chopin and Debussy in the public domain.
+	</p>
+	<MusicPlayer {tracks} bind:index bind:paused />
+</div>

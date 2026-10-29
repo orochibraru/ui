@@ -9,7 +9,7 @@
 
 	import CodeBlock from "../docs/code-block.svelte";
 	import { mcpServer } from "../docs/mcp-install.js";
-	import { groups, sections } from "../docs/registry.js";
+	import { groups, sections, shadcnHref } from "../docs/registry.js";
 
 	const { data } = $props();
 
@@ -87,8 +87,25 @@
 		</p>
 	</section>
 
+	<section class="grid grid-cols-1 gap-3">
+		<h2 class="text-lg font-semibold">Primitives</h2>
+		<p class="text-muted-foreground max-w-prose text-sm">
+			The package also exports shadcn-svelte's components as the apps customised
+			them, under <code>@orochibraru/ui/&lt;name&gt;</code>. They're documented
+			on
+			<a
+				class="text-primary underline-offset-4 hover:underline"
+				href={shadcnHref()}>shadcn-svelte</a
+			>; the MCP server and llms.txt still carry their usage code.
+		</p>
+	</section>
+
 	<p class="text-muted-foreground text-sm">
-		The tabbed-section pattern runs live in <a
+		<a
+			class="text-primary underline-offset-4 hover:underline"
+			href={resolve("/privacy")}>Privacy and credits</a
+		>. The tabbed-section pattern runs live in
+		<a
 			class="text-primary underline-offset-4 hover:underline"
 			href={resolve("/section")}>a demo section</a
 		>.

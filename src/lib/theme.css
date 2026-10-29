@@ -13,8 +13,18 @@
 @custom-variant data-vertical (&:where([data-orientation="vertical"]));
 
 :root {
-	--hue: 255;
-	--primary-chroma: 0.19;
+	--safe-top: max(env(safe-area-inset-top), var(--emulated-safe-top, 0px));
+	--safe-bottom: max(
+		env(safe-area-inset-bottom),
+		var(--emulated-safe-bottom, 0px)
+	);
+	--safe-left: max(env(safe-area-inset-left), var(--emulated-safe-left, 0px));
+	--safe-right: max(
+		env(safe-area-inset-right),
+		var(--emulated-safe-right, 0px)
+	);
+	--hue: 8;
+	--primary-chroma: 0.15;
 	--app-font: ui-sans-serif, system-ui, sans-serif;
 	--display-font: var(--app-font);
 	--radius: 1rem;
@@ -108,12 +118,14 @@
 	);
 }
 
+:root:not([data-accent]),
 [data-accent="bordeaux"] {
 	--hue: 8;
 	--primary-chroma: 0.15;
 	--primary: oklch(0.44 0.15 8);
 }
 
+.dark:not([data-accent]),
 .dark[data-accent="bordeaux"] {
 	--primary: oklch(0.62 0.17 12);
 }
@@ -228,10 +240,10 @@
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
 	--color-chrome: var(--chrome);
-	--spacing-safe-top: env(safe-area-inset-top);
-	--spacing-safe-bottom: env(safe-area-inset-bottom);
-	--spacing-safe-left: env(safe-area-inset-left);
-	--spacing-safe-right: env(safe-area-inset-right);
+	--spacing-safe-top: var(--safe-top);
+	--spacing-safe-bottom: var(--safe-bottom);
+	--spacing-safe-left: var(--safe-left);
+	--spacing-safe-right: var(--safe-right);
 }
 
 @layer base {

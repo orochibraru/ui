@@ -16,8 +16,8 @@
 
 	const defaultMessages = {
 		label: "Accent",
-		blue: "Blue",
 		bordeaux: "Bordeaux",
+		blue: "Blue",
 		green: "Green",
 		violet: "Violet",
 		rose: "Rose",
@@ -33,11 +33,15 @@
 		messages?: Partial<typeof defaultMessages>;
 	}
 
-	let { value = $bindable("blue"), onchange, messages = {} }: Props = $props();
+	let {
+		value = $bindable("bordeaux"),
+		onchange,
+		messages = {},
+	}: Props = $props();
 
 	const accents: Accent[] = [
-		"blue",
 		"bordeaux",
+		"blue",
 		"green",
 		"violet",
 		"rose",

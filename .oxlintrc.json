@@ -78,6 +78,12 @@
 	},
 	"overrides": [
 		{
+			"files": ["src/lib/server/logger.ts"],
+			"rules": {
+				"no-console": "off"
+			}
+		},
+		{
 			"files": ["**/*.svelte"],
 			"rules": {
 				"no-unused-vars": "off",

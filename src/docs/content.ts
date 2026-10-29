@@ -23,9 +23,32 @@ export function allDocs(): Found[] {
 	);
 }
 
-export function findBySlug(slug: string): Found | undefined {
-	return allDocs().find(({ doc }) => doc.slug === slug);
+/** A doc by `group/slug`, or by slug alone when only one group has it. */
+export function findBySlug(reference: string): Found | undefined {
+	const [group, slug] = reference.includes("/")
+		? reference.split("/", 2)
+		: [undefined, reference];
+	return allDocs().find(
+		(found) => found.doc.slug === slug && (!group || found.group === group),
+	);
 }
+
+/** Where a doc's example lives: components have their own folder, since their slugs repeat the primitives'. */
+export function examplePath(group: Group, slug: string): string {
+	return group === "components"
+		? `examples/components/${slug}`
+		: `examples/${slug}`;
+}
+
+/** The subpath an app imports a doc from. */
+export function importPath(group: Group, slug: string): string {
+	if (group === "blocks" || group === "components") {
+		return `${group}/${slug}`;
+	}
+	return serverModules.has(slug) ? `server/${slug}` : slug;
+}
+
+const serverModules = new Set(["hooks", "logger", "telemetry"]);
 
 export function search(query: string): Found[] {
 	const words = query.toLowerCase().split(/\s+/).filter(Boolean);
@@ -40,7 +63,11 @@ export function search(query: string): Found[] {
  * wires up what the preview can't hold, a layout, an action or a whole page. An example without a script is only a
  * note for the preview and isn't shown; tab-section shows its live demo route.
  */
-export function sourcesOf(content: Content, slug: string): SourceFile[] {
+export function sourcesOf(
+	content: Content,
+	group: Group,
+	slug: string,
+): SourceFile[] {
 	const entries = Object.entries(content.files);
 	if (slug === "tab-section") {
 		return entries
@@ -50,10 +77,11 @@ export function sourcesOf(content: Content, slug: string): SourceFile[] {
 				code: publicImports(code),
 			}));
 	}
-	const main = content.files[`examples/${slug}.svelte`];
+	const base = examplePath(group, slug);
+	const main = content.files[`${base}.svelte`];
 	const files = entries.flatMap(([path, code]) =>
-		path.startsWith(`examples/${slug}.`) && path !== `examples/${slug}.svelte`
-			? [{ name: path.slice(`examples/${slug}.`.length), code }]
+		path.startsWith(`${base}.`) && path !== `${base}.svelte`
+			? [{ name: path.slice(`${base}.`.length), code }]
 			: [],
 	);
 	if (main?.includes("<script")) {
@@ -73,13 +101,20 @@ function publicImports(code: string): string {
 			/#lib\/components\/blocks\/([\w-]+)\.svelte/g,
 			"@orochibraru/ui/blocks/$1",
 		)
-		.replaceAll(/#lib\/([\w-]+)(?:\.svelte)?\.js/g, "@orochibraru/ui/$1");
+		.replaceAll(
+			/#lib\/components\/kit\/([\w-]+)\.svelte/g,
+			"@orochibraru/ui/components/$1",
+		)
+		.replaceAll(
+			/#lib\/((?:server\/)?[\w-]+)(?:\.svelte)?\.js/g,
+			"@orochibraru/ui/$1",
+		);
 }
 
 /** One component's page as Markdown: what it is, how to import it, and the example files. */
 export function docMarkdown(content: Content, { group, doc }: Found): string {
-	const path = group === "blocks" ? `blocks/${doc.slug}` : doc.slug;
-	const files = sourcesOf(content, doc.slug).map(
+	const path = importPath(group, doc.slug);
+	const files = sourcesOf(content, group, doc.slug).map(
 		(file) =>
 			`### ${file.name}\n\n\`\`\`${file.name.endsWith(".ts") ? "ts" : "svelte"}\n${file.code.trimEnd()}\n\`\`\``,
 	);
