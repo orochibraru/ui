@@ -9,7 +9,8 @@
 		{href}
 		class="text-primary underline-offset-4 hover:underline"
 		target="_blank"
-		rel="noreferrer">{label}</a
+		rel="noopener noreferrer"
+		>{label}<span class="sr-only"> (opens in a new tab)</span></a
 	>
 {/snippet}
 

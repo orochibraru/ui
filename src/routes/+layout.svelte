@@ -66,9 +66,17 @@
 	{#if page.route.id?.startsWith("/preview/")}
 		{@render children()}
 	{:else}
+		<a
+			href="#main-content"
+			class="bg-background text-foreground focus-visible:ring-ring fixed top-2 left-2 z-50 -translate-y-20 rounded-md px-4 py-2 font-medium shadow-lg outline-none transition-transform focus:translate-y-0 focus-visible:ring-3"
+		>
+			Skip to main content
+		</a>
 		<Sidebar onsearch={() => (searchOpen = true)} />
 		<AppBar onsearch={() => (searchOpen = true)} />
 		<main
+			id="main-content"
+			tabindex="-1"
 			class="min-h-dvh px-[max(1rem,var(--safe-left))] pt-[calc(var(--safe-top)+4.25rem)] pb-32 md:pt-8 md:pr-8 md:pb-10 md:pl-80 xl:pr-10 print:p-0"
 		>
 			<PageHeader />

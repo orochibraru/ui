@@ -13,6 +13,7 @@
 @custom-variant data-vertical (&:where([data-orientation="vertical"]));
 
 :root {
+	color-scheme: light;
 	--safe-top: max(env(safe-area-inset-top), var(--emulated-safe-top, 0px));
 	--safe-bottom: max(
 		env(safe-area-inset-bottom),
@@ -34,7 +35,8 @@
 	--card-foreground: var(--foreground);
 	--popover: oklch(0.995 0.003 var(--hue));
 	--popover-foreground: var(--foreground);
-	--primary: oklch(0.6 var(--primary-chroma) var(--hue));
+	--primary: oklch(0.53 var(--primary-chroma) var(--hue));
+	--primary-hover: color-mix(in oklch, var(--primary), black 8%);
 	--primary-foreground: oklch(0.99 0.01 var(--hue));
 	--secondary: oklch(0.2 0.03 var(--hue) / 6%);
 	--secondary-foreground: var(--foreground);
@@ -47,7 +49,7 @@
 	--negative: oklch(0.58 0.19 27);
 	--border: oklch(0.2 0.03 var(--hue) / 9%);
 	--input: oklch(0.2 0.03 var(--hue) / 14%);
-	--ring: var(--primary);
+	--ring: oklch(0.32 0.08 var(--hue));
 	--chart-1: var(--primary);
 	--chart-2: oklch(0.65 0.15 250);
 	--chart-3: oklch(0.75 0.15 75);
@@ -75,11 +77,13 @@
 }
 
 .dark {
+	color-scheme: dark;
 	--background: oklch(0.145 0.018 var(--hue));
 	--foreground: oklch(0.96 0.008 var(--hue));
 	--card: oklch(0.26 0.025 var(--hue) / 46%);
 	--popover: oklch(0.22 0.022 var(--hue));
 	--primary: oklch(0.74 var(--primary-chroma) var(--hue));
+	--primary-hover: color-mix(in oklch, var(--primary), white 8%);
 	--primary-foreground: oklch(0.17 0.03 var(--hue));
 	--secondary: oklch(1 0 0 / 7%);
 	--muted: oklch(1 0 0 / 6%);
@@ -89,6 +93,7 @@
 	--destructive: oklch(0.7 0.19 22);
 	--positive: oklch(0.78 0.15 155);
 	--negative: oklch(0.72 0.17 25);
+	--ring: oklch(0.9 0.05 var(--hue));
 	--border: oklch(1 0 0 / 9%);
 	--input: oklch(1 0 0 / 14%);
 	--chrome: oklch(0.2 0.02 var(--hue) / 58%);
@@ -291,8 +296,13 @@
 		user-select: none;
 	}
 
-	input,
-	button {
+	button,
+	input[type="button"],
+	input[type="checkbox"],
+	input[type="file"],
+	input[type="radio"],
+	input[type="reset"],
+	input[type="submit"] {
 		@apply cursor-pointer;
 	}
 
@@ -428,6 +438,35 @@
 
 	::view-transition-new(root) {
 		animation-name: page-in;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+@media (forced-colors: active) {
+	*,
+	*::before,
+	*::after {
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+
+	:focus-visible {
+		outline: 2px solid Highlight !important;
+		outline-offset: 2px !important;
+	}
+
+	.aurora::before {
+		display: none;
 	}
 }
 
