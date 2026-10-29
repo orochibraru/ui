@@ -1,20 +1,21 @@
 <script lang="ts">
+	import { resolve } from "$app/paths";
 	import BellIcon from "@lucide/svelte/icons/bell";
 	import InboxIcon from "@lucide/svelte/icons/inbox";
-	import MoonIcon from "@lucide/svelte/icons/moon";
+	import LayoutListIcon from "@lucide/svelte/icons/layout-list";
 	import PlusIcon from "@lucide/svelte/icons/plus";
 	import WalletIcon from "@lucide/svelte/icons/wallet";
-	import { toggleMode } from "mode-watcher";
 	import { toast } from "svelte-sonner";
 
 	import AuthShell from "#lib/components/blocks/auth-shell.svelte";
 	import CopyField from "#lib/components/blocks/copy-field.svelte";
 	import EmptyState from "#lib/components/blocks/empty-state.svelte";
 	import Fab from "#lib/components/blocks/fab.svelte";
-	import IconButton from "#lib/components/blocks/icon-button.svelte";
 	import ResponsiveSheet from "#lib/components/blocks/responsive-sheet.svelte";
 	import SettingSwitch from "#lib/components/blocks/setting-switch.svelte";
 	import StatCard from "#lib/components/blocks/stat-card.svelte";
+	import ThemePicker from "#lib/components/blocks/theme-picker.svelte";
+	import ThemeToggle from "#lib/components/blocks/theme-toggle.svelte";
 	import * as Accordion from "#lib/components/ui/accordion/index.js";
 	import * as Alert from "#lib/components/ui/alert/index.js";
 	import { Badge } from "#lib/components/ui/badge/index.js";
@@ -77,11 +78,7 @@
 					</ToggleGroup.Item>
 				{/each}
 			</ToggleGroup.Root>
-			<IconButton
-				label="Toggle dark mode"
-				icon={MoonIcon}
-				onclick={toggleMode}
-			/>
+			<ThemeToggle />
 		</div>
 	</header>
 
@@ -102,6 +99,13 @@
 		/>
 		<StatCard label="You owe" value="96 €" icon={WalletIcon} tone="warning" />
 		<StatCard label="Alerts" value={3} href="#alerts" icon={BellIcon} />
+		<StatCard
+			label="Tab section"
+			value="Nav cards"
+			hint="Tabs on desktop, cards on phones"
+			href={resolve("/section")}
+			icon={LayoutListIcon}
+		/>
 	</section>
 
 	<section
@@ -265,6 +269,15 @@
 						>
 					</Accordion.Item>
 				</Accordion.Root>
+			</Card.Content>
+		</Card.Root>
+
+		<Card.Root class="sm:col-span-2">
+			<Card.Header>
+				<Card.Title>Theme</Card.Title>
+			</Card.Header>
+			<Card.Content>
+				<ThemePicker />
 			</Card.Content>
 		</Card.Root>
 

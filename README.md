@@ -69,15 +69,39 @@ Under `@orochibraru/ui/blocks/<name>`:
 | `fab`              | Floating action button above the phone tab bar, with a haptic tap.          |
 | `icon-button`      | Round icon button with a tooltip that doubles as its accessible name.       |
 | `install-prompt`   | One-time PWA install sheet: native prompt, iOS steps or browser menu steps. |
+| `nav-cards`        | Phone-only list of a section's tabs as cards: icon, label, description.     |
+| `option-group`     | Radio cards for a settings choice, with an icon or a `swatch` snippet each. |
 | `responsive-sheet` | A dialog on desktop, a bottom drawer under 768px.                           |
 | `setting-switch`   | Labelled switch row for settings forms, posting `name=true` when on.        |
 | `stat-card`        | Glass card with an icon, a value and a hint, optionally a link.             |
+| `tab-nav`          | Pill tab bar of links, the current page's tab highlighted.                  |
+| `tab-section`      | Layout for a tabbed section: tabs on desktop, nav cards on phones.          |
+| `theme-picker`     | System, light and dark as radio cards, for an appearance page.              |
+| `theme-toggle`     | System, light and dark as a compact icon toggle, for an app bar or menu.    |
 | `top-loading-bar`  | Progress bar during SvelteKit navigations, safe-area aware.                 |
 
-Blocks with built-in copy (`copy-field`, `error-page`, `install-prompt`) take a
-`messages` prop. Its keys override the English defaults one by one, which is how
-a French or translated app uses them. Blocks never set the page title: the app
-calls `setPageTitle` itself.
+Blocks with built-in copy (`copy-field`, `error-page`, `install-prompt`,
+`theme-picker`, `theme-toggle`) take a `messages` prop. Its keys override the
+English defaults one by one, which is how a French or translated app uses them.
+Blocks never set the page title, except `tab-section`, which owns its section's
+title: the app calls `setPageTitle` itself.
+
+### Tabbed sections
+
+A tabbed page is one real route per tab, each tab with a description, under a
+`tab-section` layout. On phones the index route renders `nav-cards` and each tab
+is a page titled by its label, its back button returning to the cards. On
+desktop the index replaces itself with the first tab and `tab-nav` shows them
+all. The tabs live in one list (`SectionTab[]`, exported by `nav-cards`) that
+the layout and the index page share.
+
+### Theme
+
+`theme-picker` and `theme-toggle` call `mode-watcher`'s `setMode`, so the app
+mounts `<ModeWatcher />` in its root layout. Both take the saved theme as
+`value`, so the server-rendered page checks the right one, and call `onchange`
+with the new theme for the app to persist. `theme-picker` also posts as a
+`theme` radio field (`name` changes it) inside a form.
 
 `icon-button`, and `copy-field` through it, need a `Tooltip.Provider` above
 them, which apps put in their root layout.
