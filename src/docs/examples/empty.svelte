@@ -1,6 +1,6 @@
 <script lang="ts">
+	import FileTextIcon from "@lucide/svelte/icons/file-text";
 	import PlusIcon from "@lucide/svelte/icons/plus";
-	import ReceiptIcon from "@lucide/svelte/icons/receipt";
 
 	import { Button } from "#lib/components/ui/button/index.js";
 	import * as Empty from "#lib/components/ui/empty/index.js";
@@ -9,14 +9,14 @@
 <Empty.Root class="border">
 	<Empty.Header>
 		<Empty.Media variant="icon">
-			<ReceiptIcon />
+			<FileTextIcon />
 		</Empty.Media>
-		<Empty.Title>No expenses yet</Empty.Title>
+		<Empty.Title>No documents yet</Empty.Title>
 		<Empty.Description>
-			Add the first expense of this group and we'll start splitting it.
+			Create the first document of this project to get started.
 		</Empty.Description>
 	</Empty.Header>
 	<Empty.Content>
-		<Button><PlusIcon /> Add expense</Button>
+		<Button><PlusIcon /> New document</Button>
 	</Empty.Content>
 </Empty.Root>

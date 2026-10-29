@@ -8,6 +8,9 @@
 		"url": "git+https://github.com/orochibraru/ui.git"
 	},
 	"type": "module",
+	"bin": {
+		"orochibraru-ui-mcp": "./dist/mcp.js"
+	},
 	"packageManager": "bun@1.4.4",
 	"files": [
 		"dist",
@@ -58,7 +61,8 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "svelte-kit sync && svelte-package && publint --strict",
+		"build": "svelte-kit sync && svelte-package && bun scripts/build-mcp.ts && publint --strict",
+		"build:docs": "vite build",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
 		"format": "bun fmt",
 		"lint": "prek run --all-files",
@@ -88,6 +92,7 @@
 		"@happy-dom/global-registrator": "21.0.4",
 		"@j178/prek": "0.5.7",
 		"@modelcontextprotocol/sdk": "1.32.2",
+		"@sveltejs/adapter-bun": "1.0.0",
 		"@sveltejs/kit": "3.1.0",
 		"@sveltejs/package": "3.0.1",
 		"@sveltejs/vite-plugin-svelte": "7.3.1",

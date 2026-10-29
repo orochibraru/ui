@@ -42,7 +42,7 @@
 <svelte:window {onscroll} />
 
 <nav
-	class="group/nav fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden"
+	class="group/nav fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden print:hidden"
 	style="view-transition-name: tab-bar"
 	aria-label={label}
 	data-compact={compact || undefined}

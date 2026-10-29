@@ -1,8 +1,9 @@
 import { error } from "@sveltejs/kit";
 
+import { sourcesOf } from "../../../docs/content.js";
 import { highlight, langOf } from "../../../docs/highlight.server.js";
 import { findDoc, isGroup } from "../../../docs/registry.js";
-import { sourcesOf } from "../../../docs/sources.server.js";
+import { content } from "../../../docs/sources.server.js";
 
 export { actions } from "../../../docs/examples/toast.+page.server.js";
 
@@ -14,7 +15,7 @@ export async function load({ params }) {
 		group: params.group,
 		slug: params.slug,
 		sources: await Promise.all(
-			sourcesOf(params.slug).map(async (file) => ({
+			sourcesOf(content, params.slug).map(async (file) => ({
 				...file,
 				html: await highlight(file.code, langOf(file.name)),
 			})),

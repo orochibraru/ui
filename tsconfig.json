@@ -5,5 +5,5 @@
 		"noUncheckedIndexedAccess": true,
 		"types": ["bun", "$app/types"]
 	},
-	"include": ["src", "tests", "*.ts"]
+	"include": ["src", "tests", "scripts", "*.ts"]
 }

@@ -1,26 +1,26 @@
 <script lang="ts">
 	import * as Select from "#lib/components/ui/select/index.js";
 
-	const currencies = [
-		{ value: "eur", label: "Euro (EUR)" },
-		{ value: "usd", label: "US dollar (USD)" },
-		{ value: "gbp", label: "Pound sterling (GBP)" },
-		{ value: "chf", label: "Swiss franc (CHF)" },
+	const roles = [
+		{ value: "viewer", label: "Viewer" },
+		{ value: "editor", label: "Editor" },
+		{ value: "admin", label: "Admin" },
+		{ value: "owner", label: "Owner" },
 	];
 
-	let currency = $state("");
+	let role = $state("");
 	const label = $derived(
-		currencies.find((c) => c.value === currency)?.label ?? "Pick a currency",
+		roles.find((r) => r.value === role)?.label ?? "Pick a role",
 	);
 </script>
 
-<Select.Root type="single" bind:value={currency}>
+<Select.Root type="single" bind:value={role}>
 	<Select.Trigger class="w-56">{label}</Select.Trigger>
 	<Select.Content>
 		<Select.Group>
-			<Select.Label>Currencies</Select.Label>
-			{#each currencies as c (c.value)}
-				<Select.Item value={c.value} label={c.label}>{c.label}</Select.Item>
+			<Select.Label>Roles</Select.Label>
+			{#each roles as r (r.value)}
+				<Select.Item value={r.value} label={r.label}>{r.label}</Select.Item>
 			{/each}
 		</Select.Group>
 	</Select.Content>

@@ -28,7 +28,7 @@
 	<Sidebar />
 	<AppBar />
 	<main
-		class="min-h-dvh px-[max(1rem,env(safe-area-inset-left))] pt-[calc(env(safe-area-inset-top)+4.25rem)] pb-32 md:pt-8 md:pr-8 md:pb-10 md:pl-80 xl:pr-10"
+		class="min-h-dvh px-[max(1rem,env(safe-area-inset-left))] pt-[calc(env(safe-area-inset-top)+4.25rem)] pb-32 md:pt-8 md:pr-8 md:pb-10 md:pl-80 xl:pr-10 print:p-0"
 	>
 		<PageHeader />
 		{@render children()}

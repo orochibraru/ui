@@ -1,21 +1,21 @@
 <script lang="ts">
 	import * as Tabs from "#lib/components/ui/tabs/index.js";
 
-	let tab = $state("expenses");
+	let tab = $state("projects");
 </script>
 
 <div class="grid gap-8">
 	<Tabs.Root bind:value={tab}>
 		<Tabs.List>
-			<Tabs.Trigger value="expenses">Expenses</Tabs.Trigger>
-			<Tabs.Trigger value="balances">Balances</Tabs.Trigger>
+			<Tabs.Trigger value="projects">Projects</Tabs.Trigger>
+			<Tabs.Trigger value="activity">Activity</Tabs.Trigger>
 			<Tabs.Trigger value="members">Members</Tabs.Trigger>
 		</Tabs.List>
-		<Tabs.Content value="expenses" class="text-sm">
-			23 expenses, 1 284.60 € in total.
+		<Tabs.Content value="projects" class="text-sm">
+			12 projects, 4 archived.
 		</Tabs.Content>
-		<Tabs.Content value="balances" class="text-sm">
-			Sam owes you 42.00 €.
+		<Tabs.Content value="activity" class="text-sm">
+			Sam commented on the roadmap.
 		</Tabs.Content>
 		<Tabs.Content value="members" class="text-sm">
 			Alex, Sam, Lou and you.

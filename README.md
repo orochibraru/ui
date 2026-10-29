@@ -59,31 +59,33 @@ a search box never gets a login suggestion.
 
 Under `@orochibraru/ui/blocks/<name>`:
 
-| Block                 | What it does                                                                |
-| --------------------- | --------------------------------------------------------------------------- |
-| `accent-toggle`       | The accent presets: swatch strip on desktop, labelled rows on phones.       |
-| `auth-shell`          | Centered sign-in layout: heading, optional `brand` and `footer` snippets.   |
-| `bottom-nav`          | Phone tab bar of top-level destinations, the current one lit.               |
-| `copy-field`          | Monospace value with a copy button and a promise toast.                     |
-| `document-title`      | `<title>` from the page title, suffixed with `appName`.                     |
-| `empty-state`         | Icon, title, subtitle and an action slot for an empty list.                 |
-| `error-page`          | Status, message and error id from `page`, with a link to `homeHref`.        |
-| `fab`                 | Floating action button above the phone tab bar, with a haptic tap.          |
-| `icon-button`         | Round icon button with a tooltip that doubles as its accessible name.       |
-| `install-prompt`      | One-time PWA install sheet: native prompt, iOS steps or browser menu steps. |
-| `nav-cards`           | Phone-only list of a section's tabs as cards: icon, label, description.     |
-| `new-password-fields` | New password and its confirmation: reveal, strength meter, rules.           |
-| `option-group`        | Radio cards for a settings choice, with an icon or a `swatch` snippet each. |
-| `otp-field`           | One-time code: digits only, SMS autofill, posted as one `code` field.       |
-| `password-input`      | Password field with a button to reveal it.                                  |
-| `responsive-sheet`    | A dialog on desktop, a bottom drawer under 768px.                           |
-| `setting-switch`      | Labelled switch row for settings forms, posting `name=true` when on.        |
-| `stat-card`           | Glass card with an icon, a value and a hint, optionally a link.             |
-| `tab-nav`             | Pill tab bar of links, the current page's tab highlighted.                  |
-| `tab-section`         | Layout for a tabbed section: tabs on desktop, nav cards on phones.          |
-| `theme-picker`        | System, light and dark as radio cards, for an appearance page.              |
-| `theme-toggle`        | System, light and dark: icon strip on desktop, three rows on phones.        |
-| `top-loading-bar`     | Progress bar during SvelteKit navigations, safe-area aware.                 |
+| Block                 | What it does                                                                  |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `accent-toggle`       | The accent presets: swatch strip on desktop, labelled rows on phones.         |
+| `auth-shell`          | Centered sign-in layout: heading, optional `brand` and `footer` snippets.     |
+| `bottom-nav`          | Phone tab bar of top-level destinations, the current one lit.                 |
+| `copy-field`          | Monospace value with a copy button and a promise toast.                       |
+| `document-title`      | `<title>` from the page title, suffixed with `appName`.                       |
+| `empty-state`         | Icon, title, subtitle and an action slot for an empty list.                   |
+| `error-page`          | Status, message and error id from `page`, with a link to `homeHref`.          |
+| `fab`                 | Floating action button above the phone tab bar, with a haptic tap.            |
+| `icon-button`         | Round icon button with a tooltip that doubles as its accessible name.         |
+| `install-prompt`      | One-time PWA install sheet: native prompt, iOS steps or browser menu steps.   |
+| `music-player`        | Audio bar with a queue: play, skip, seek, volume; positioning is the app's.   |
+| `nav-cards`           | Phone-only list of a section's tabs as cards: icon, label, description.       |
+| `new-password-fields` | New password and its confirmation: reveal, strength meter, rules.             |
+| `option-group`        | Radio cards for a settings choice, with an icon or a `swatch` snippet each.   |
+| `otp-field`           | One-time code: digits only, SMS autofill, posted as one `code` field.         |
+| `password-input`      | Password field with a button to reveal it.                                    |
+| `responsive-sheet`    | A dialog on desktop, a bottom drawer under 768px.                             |
+| `setting-switch`      | Labelled switch row for settings forms, posting `name=true` when on.          |
+| `stat-card`           | Glass card with an icon, a value and a hint, optionally a link.               |
+| `tab-nav`             | Pill tab bar of links, the current page's tab highlighted.                    |
+| `tab-section`         | Layout for a tabbed section: tabs on desktop, nav cards on phones.            |
+| `theme-picker`        | System, light and dark as radio cards, for an appearance page.                |
+| `theme-toggle`        | System, light and dark: icon strip on desktop, three rows on phones.          |
+| `top-loading-bar`     | Progress bar during SvelteKit navigations, safe-area aware.                   |
+| `video-player`        | Video with scrubbing, chapters, subtitles, speed, fullscreen, gestures, keys. |
 
 Blocks with built-in copy (`accent-toggle`, `copy-field`, `error-page`,
 `install-prompt`, `new-password-fields`, `password-input`, `theme-picker`,
@@ -173,11 +175,13 @@ drift apart. A file named `<slug>.<name>` next to an example is a companion,
 shown after it: the layout, action or page an app needs for what the preview
 can't hold. An example without a script is a note for the preview only.
 
-For AI tools, the site serves `/llms.txt` (an index linking each component's
-Markdown at `/<group>/<slug>.md`), `/llms-full.txt` (the README and every
-component in one file) and an MCP server at `/mcp` (streamable HTTP, stateless)
-with `get_setup`, `list_components`, `search_components` and `get_component`.
-All of it reads the same examples the pages show.
+Every component page can be copied as Markdown, viewed as Markdown, exported as
+a PDF (through the browser's print dialog, in the light theme), or opened in
+Claude or ChatGPT. The list pages filter by category.
+
+The `Dockerfile` deploys the docs site: `bun run build:docs` compiles it to one
+Bun binary that serves on port 3000 and reads `x-forwarded-proto` and
+`x-forwarded-host`, so llms.txt links point at the public URL behind a proxy.
 
 `bun run check`, `bun run test` and `bun run build` are the gates; `build`
 packages `dist/` and runs publint.
@@ -190,3 +194,30 @@ put them back after.
 
 Dependencies use caret ranges, unlike the apps' exact pins, so a consuming app
 dedupes `bits-ui` and friends with its own copy instead of bundling two.
+
+## MCP server
+
+The package ships an MCP server with the docs and every example's code bundled
+in, so an editor's assistant can list, search and read the components without
+the docs site. It runs over stdio from the package's `bin`:
+
+```bash
+claude mcp add orochibraru-ui -- npx -y @orochibraru/ui
+```
+
+Cursor, VS Code and other clients take the same command:
+
+```json
+{
+  "mcpServers": {
+    "orochibraru-ui": { "command": "npx", "args": ["-y", "@orochibraru/ui"] }
+  }
+}
+```
+
+Its tools are `get_setup` (this README), `list_components` (by group or
+category), `search_components` and `get_component` (the description, import path
+and usage code). `bun run build` bundles it with its content, so it needs no
+dependency at runtime. The docs site serves the same server over streamable HTTP
+at `/mcp`, plus `/llms.txt`, `/llms-full.txt` and a Markdown page per component
+at `/<group>/<slug>.md`.

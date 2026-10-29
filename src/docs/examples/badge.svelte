@@ -5,12 +5,12 @@
 </script>
 
 <div class="flex flex-wrap items-center gap-2">
-	<Badge>Paid</Badge>
+	<Badge>Active</Badge>
 	<Badge variant="secondary">Pending</Badge>
 	<Badge variant="outline">Archived</Badge>
 	<Badge variant="destructive">Overdue</Badge>
 	<Badge variant="secondary"
-		><CheckIcon data-icon="inline-start" /> Settled</Badge
+		><CheckIcon data-icon="inline-start" /> Completed</Badge
 	>
-	<Badge href="#">3 new expenses</Badge>
+	<Badge href="#">3 new messages</Badge>
 </div>

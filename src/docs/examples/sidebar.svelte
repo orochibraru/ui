@@ -1,32 +1,32 @@
 <script lang="ts">
+	import BoxIcon from "@lucide/svelte/icons/box";
+	import FolderIcon from "@lucide/svelte/icons/folder";
 	import HouseIcon from "@lucide/svelte/icons/house";
-	import ReceiptIcon from "@lucide/svelte/icons/receipt";
 	import SettingsIcon from "@lucide/svelte/icons/settings";
 	import UsersIcon from "@lucide/svelte/icons/users";
-	import WalletIcon from "@lucide/svelte/icons/wallet";
 
 	import * as Sidebar from "#lib/components/ui/sidebar/index.js";
 
 	const items = [
 		{ title: "Overview", href: "#overview", icon: HouseIcon },
-		{ title: "Expenses", href: "#expenses", icon: ReceiptIcon, badge: 23 },
+		{ title: "Projects", href: "#projects", icon: FolderIcon, badge: 12 },
 		{ title: "Members", href: "#members", icon: UsersIcon },
 		{ title: "Settings", href: "#settings", icon: SettingsIcon },
 	];
 
-	let active = $state("Expenses");
+	let active = $state("Projects");
 </script>
 
 <Sidebar.Provider class="h-96 min-h-0 overflow-hidden rounded-lg border">
 	<Sidebar.Root collapsible="none" class="border-e">
 		<Sidebar.Header>
 			<div class="flex items-center gap-2 p-2 font-semibold">
-				<WalletIcon class="size-4" /> OpenCount
+				<BoxIcon class="size-4" /> Acme
 			</div>
 		</Sidebar.Header>
 		<Sidebar.Content>
 			<Sidebar.Group>
-				<Sidebar.GroupLabel>Weekend in Lyon</Sidebar.GroupLabel>
+				<Sidebar.GroupLabel>Workspace</Sidebar.GroupLabel>
 				<Sidebar.GroupContent>
 					<Sidebar.Menu>
 						{#each items as item (item.title)}

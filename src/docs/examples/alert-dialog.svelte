@@ -9,7 +9,7 @@
 <AlertDialog.Root>
 	<AlertDialog.Trigger>
 		{#snippet child({ props })}
-			<Button {...props} variant="destructive">Delete group</Button>
+			<Button {...props} variant="destructive">Delete project</Button>
 		{/snippet}
 	</AlertDialog.Trigger>
 	<AlertDialog.Content>
@@ -17,17 +17,17 @@
 			<AlertDialog.Media>
 				<Trash2Icon />
 			</AlertDialog.Media>
-			<AlertDialog.Title>Delete "Lisbon trip"?</AlertDialog.Title>
+			<AlertDialog.Title>Delete "Website redesign"?</AlertDialog.Title>
 			<AlertDialog.Description>
-				The group and its 48 expenses are deleted for every member. This can't
-				be undone.
+				The project and its 48 files are deleted for every member. This can't be
+				undone.
 			</AlertDialog.Description>
 		</AlertDialog.Header>
 		<AlertDialog.Footer>
 			<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
 			<AlertDialog.Action
 				variant="destructive"
-				onclick={() => toast.success("Group deleted.")}
+				onclick={() => toast.success("Project deleted.")}
 			>
 				Delete
 			</AlertDialog.Action>

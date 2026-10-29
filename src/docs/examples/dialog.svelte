@@ -11,27 +11,27 @@
 	function save(event: SubmitEvent) {
 		event.preventDefault();
 		open = false;
-		toast.success("Group renamed.");
+		toast.success("Project renamed.");
 	}
 </script>
 
 <Dialog.Root bind:open>
 	<Dialog.Trigger>
 		{#snippet child({ props })}
-			<Button {...props} variant="outline">Rename group</Button>
+			<Button {...props} variant="outline">Rename project</Button>
 		{/snippet}
 	</Dialog.Trigger>
 	<Dialog.Content>
 		<form class="grid gap-6" onsubmit={save}>
 			<Dialog.Header>
-				<Dialog.Title>Rename group</Dialog.Title>
+				<Dialog.Title>Rename project</Dialog.Title>
 				<Dialog.Description>
 					Every member sees the new name right away.
 				</Dialog.Description>
 			</Dialog.Header>
 			<Field.Field>
-				<Field.Label for="group-name">Name</Field.Label>
-				<Input id="group-name" value="Lisbon trip" />
+				<Field.Label for="project-name">Name</Field.Label>
+				<Input id="project-name" value="Website redesign" />
 			</Field.Field>
 			<Dialog.Footer>
 				<Dialog.Close>

@@ -2,7 +2,7 @@ import { createHighlighter } from "shiki";
 
 const highlighter = createHighlighter({
 	themes: ["github-light", "github-dark"],
-	langs: ["svelte", "ts", "css", "bash"],
+	langs: ["svelte", "ts", "css", "bash", "json"],
 });
 
 /** The code as HTML with both themes' colours as CSS variables, which the code block picks by the `dark` class. */

@@ -6,6 +6,7 @@ import BellIcon from "@lucide/svelte/icons/bell";
 import BetweenHorizontalStartIcon from "@lucide/svelte/icons/between-horizontal-start";
 import BlocksIcon from "@lucide/svelte/icons/blocks";
 import BoldIcon from "@lucide/svelte/icons/bold";
+import BoxIcon from "@lucide/svelte/icons/box";
 import BracesIcon from "@lucide/svelte/icons/braces";
 import CalendarIcon from "@lucide/svelte/icons/calendar";
 import CalendarRangeIcon from "@lucide/svelte/icons/calendar-range";
@@ -22,6 +23,7 @@ import CopyIcon from "@lucide/svelte/icons/copy";
 import DownloadIcon from "@lucide/svelte/icons/download";
 import EllipsisIcon from "@lucide/svelte/icons/ellipsis";
 import FileTextIcon from "@lucide/svelte/icons/file-text";
+import FilmIcon from "@lucide/svelte/icons/film";
 import GaugeIcon from "@lucide/svelte/icons/gauge";
 import GripVerticalIcon from "@lucide/svelte/icons/grip-vertical";
 import GroupIcon from "@lucide/svelte/icons/group";
@@ -45,6 +47,7 @@ import MessageSquareIcon from "@lucide/svelte/icons/message-square";
 import MessageSquareTextIcon from "@lucide/svelte/icons/message-square-text";
 import MessageSquareWarningIcon from "@lucide/svelte/icons/message-square-warning";
 import MousePointerClickIcon from "@lucide/svelte/icons/mouse-pointer-click";
+import MusicIcon from "@lucide/svelte/icons/music";
 import NotepadTextIcon from "@lucide/svelte/icons/notepad-text";
 import PackageOpenIcon from "@lucide/svelte/icons/package-open";
 import PaintBucketIcon from "@lucide/svelte/icons/paint-bucket";
@@ -81,246 +84,114 @@ import type { Component } from "svelte";
 
 import type { NavItem } from "#lib/components/blocks/bottom-nav.svelte";
 
-export type Group = "blocks" | "primitives" | "modules";
+import { catalog, type CatalogDoc, type Group, isGroup } from "./catalog.js";
+
+export { type Group, isGroup };
 
 type Icon = Component<{ class?: string }>;
 
-type Entry = [icon: Icon, description: string];
-
-export interface Doc {
-	slug: string;
-	name: string;
-	description: string;
+export interface Doc extends CatalogDoc {
 	icon: Icon;
 }
 
-const blocks: Record<string, Entry> = {
-	"accent-toggle": [
-		PaintBucketIcon,
-		"The accent presets: a swatch strip on desktop, labelled rows on phones.",
-	],
-	"auth-shell": [
-		LogInIcon,
-		"Centered sign-in layout: heading, optional brand and footer.",
-	],
-	"bottom-nav": [
-		PanelBottomIcon,
-		"The phone tab bar: top-level destinations, the current one lit.",
-	],
-	"copy-field": [
-		CopyIcon,
-		"Monospace value with a copy button and a promise toast.",
-	],
-	"document-title": [
-		FileTextIcon,
-		"The tab's <title> from the page title, suffixed with the app.",
-	],
-	"empty-state": [
-		InboxIcon,
-		"Icon, title, subtitle and an action for an empty list.",
-	],
-	"error-page": [
-		TriangleAlertIcon,
-		"Status, message and error id, with a link back home.",
-	],
-	fab: [
-		CirclePlusIcon,
-		"Floating action button above the phone tab bar, with a haptic tap.",
-	],
-	"icon-button": [
-		MousePointerClickIcon,
-		"Round icon button whose tooltip is its accessible name.",
-	],
-	"install-prompt": [
-		DownloadIcon,
-		"One-time PWA install sheet: native prompt or the steps.",
-	],
-	"nav-cards": [
-		LayoutListIcon,
-		"Phone-only list of a section's tabs as cards.",
-	],
-	"new-password-fields": [
-		ShieldCheckIcon,
-		"New password with a reveal button, a strength meter and the rules it must pass.",
-	],
-	"option-group": [
-		ListChecksIcon,
-		"Radio cards for a settings choice, each with an icon or swatch.",
-	],
-	"otp-field": [
-		HashIcon,
-		"A one-time code: digits only, autofilled from SMS, posted as one field.",
-	],
-	"password-input": [
-		LockKeyholeIcon,
-		"A password field with a button to reveal what was typed.",
-	],
-	"responsive-sheet": [
-		PanelBottomOpenIcon,
-		"A dialog on desktop, a bottom drawer on phones.",
-	],
-	"setting-switch": [
-		ToggleRightIcon,
-		"Labelled switch row for settings forms.",
-	],
-	"stat-card": [
-		ChartNoAxesColumnIcon,
-		"Glass card with an icon, a value and a hint, optionally a link.",
-	],
-	"tab-nav": [
-		PanelsTopLeftIcon,
-		"Pill tab bar of links, the current page's tab highlighted.",
-	],
-	"tab-section": [
-		LayoutPanelTopIcon,
-		"Tabbed section layout: tabs on desktop, nav cards on phones.",
-	],
-	"theme-picker": [PaletteIcon, "System, light and dark as radio cards."],
-	"theme-toggle": [
-		SunMoonIcon,
-		"System, light and dark: an icon strip on desktop, three rows on phones.",
-	],
-	"top-loading-bar": [LoaderIcon, "Progress bar during SvelteKit navigations."],
+const groupIcons: Record<Group, Icon> = {
+	blocks: BlocksIcon,
+	primitives: ComponentIcon,
+	modules: BracesIcon,
 };
 
-const primitives: Record<string, Entry> = {
-	accordion: [
-		ChevronsUpDownIcon,
-		"Stacked sections that expand one or several at a time.",
-	],
-	alert: [CircleAlertIcon, "A callout for something the reader should notice."],
-	"alert-dialog": [
-		MessageSquareWarningIcon,
-		"A modal that asks to confirm before something drastic.",
-	],
-	avatar: [CircleUserRoundIcon, "A user's picture, falling back to initials."],
-	badge: [TagIcon, "A small label for a status or a count."],
-	breadcrumb: [
-		ChevronsRightIcon,
-		"The path from the root to the current page.",
-	],
-	button: [RectangleHorizontalIcon, "Every button variant and size."],
-	"button-group": [GroupIcon, "Buttons joined into one control."],
-	calendar: [CalendarIcon, "A month grid to pick a date."],
-	card: [SquareIcon, "A surface with a header, content and footer."],
-	checkbox: [SquareCheckIcon, "A checkbox, with a label through Field."],
-	command: [CommandIcon, "A searchable list of commands, also as a palette."],
-	"context-menu": [
-		SquareMousePointerIcon,
-		"A menu on right click or long press.",
-	],
-	dialog: [AppWindowIcon, "A modal window over the page."],
-	drawer: [
-		ArrowUpFromLineIcon,
-		"A panel sliding up from the bottom, made for phones.",
-	],
-	"dropdown-menu": [SquareChevronDownIcon, "A menu opened from a button."],
-	empty: [PackageOpenIcon, "The parts of an empty state, to compose your own."],
-	field: [
-		TextCursorInputIcon,
-		"Label, control, description and error, laid out together.",
-	],
-	input: [
-		TextCursorIcon,
-		"A text input; password managers stay off unless asked.",
-	],
-	"input-group": [
-		BetweenHorizontalStartIcon,
-		"An input with addons: icons, text or buttons.",
-	],
-	"input-otp": [KeyRoundIcon, "One box per digit for a one-time code."],
-	label: [TypeIcon, "A label for a form control."],
-	menubar: [MenuIcon, "A desktop-style bar of menus."],
-	pagination: [EllipsisIcon, "Links to the pages of a long list."],
-	popover: [MessageSquareIcon, "Floating content anchored to a trigger."],
-	progress: [GaugeIcon, "How far along something is."],
-	"radio-group": [CircleDotIcon, "Pick one of a few options."],
-	"range-calendar": [
-		CalendarRangeIcon,
-		"A month grid to pick a start and an end date.",
-	],
-	resizable: [GripVerticalIcon, "Panes split by a draggable handle."],
-	"scroll-area": [ScrollTextIcon, "A scrolling box with a styled scrollbar."],
-	select: [ListIcon, "Pick one option from a list."],
-	separator: [SeparatorHorizontalIcon, "A line between groups of content."],
-	sheet: [PanelRightIcon, "A panel sliding in from a side of the screen."],
-	sidebar: [
-		PanelLeftIcon,
-		"The app sidebar: groups, menus, collapsing to icons.",
-	],
-	skeleton: [RectangleEllipsisIcon, "Placeholder shapes while content loads."],
-	slider: [SlidersHorizontalIcon, "Pick a value or a range by dragging."],
-	sonner: [BellIcon, "Toasts, styled by the theme."],
-	spinner: [LoaderCircleIcon, "An indeterminate loading indicator."],
-	switch: [ToggleLeftIcon, "An on or off toggle."],
-	table: [TableIcon, "Rows and columns of data."],
-	tabs: [LayersIcon, "In-page tabs that switch panels without navigating."],
-	textarea: [NotepadTextIcon, "A multi-line text input."],
-	toggle: [BoldIcon, "A button that stays pressed."],
-	"toggle-group": [Rows3Icon, "Toggles where one or several stay pressed."],
-	tooltip: [MessageCircleIcon, "A hint on hover or focus."],
+const icons: Record<string, Icon> = {
+	"accent-toggle": PaintBucketIcon,
+	"auth-shell": LogInIcon,
+	"bottom-nav": PanelBottomIcon,
+	"copy-field": CopyIcon,
+	"document-title": FileTextIcon,
+	"empty-state": InboxIcon,
+	"error-page": TriangleAlertIcon,
+	fab: CirclePlusIcon,
+	"icon-button": MousePointerClickIcon,
+	"install-prompt": DownloadIcon,
+	"music-player": MusicIcon,
+	"video-player": FilmIcon,
+	"nav-cards": LayoutListIcon,
+	"new-password-fields": ShieldCheckIcon,
+	"option-group": ListChecksIcon,
+	"otp-field": HashIcon,
+	"password-input": LockKeyholeIcon,
+	"responsive-sheet": PanelBottomOpenIcon,
+	"setting-switch": ToggleRightIcon,
+	"stat-card": ChartNoAxesColumnIcon,
+	"tab-nav": PanelsTopLeftIcon,
+	"tab-section": LayoutPanelTopIcon,
+	"theme-picker": PaletteIcon,
+	"theme-toggle": SunMoonIcon,
+	"top-loading-bar": LoaderIcon,
+	accordion: ChevronsUpDownIcon,
+	alert: CircleAlertIcon,
+	"alert-dialog": MessageSquareWarningIcon,
+	avatar: CircleUserRoundIcon,
+	badge: TagIcon,
+	breadcrumb: ChevronsRightIcon,
+	button: RectangleHorizontalIcon,
+	"button-group": GroupIcon,
+	calendar: CalendarIcon,
+	card: SquareIcon,
+	checkbox: SquareCheckIcon,
+	command: CommandIcon,
+	"context-menu": SquareMousePointerIcon,
+	dialog: AppWindowIcon,
+	drawer: ArrowUpFromLineIcon,
+	"dropdown-menu": SquareChevronDownIcon,
+	empty: PackageOpenIcon,
+	field: TextCursorInputIcon,
+	input: TextCursorIcon,
+	"input-group": BetweenHorizontalStartIcon,
+	"input-otp": KeyRoundIcon,
+	label: TypeIcon,
+	menubar: MenuIcon,
+	pagination: EllipsisIcon,
+	popover: MessageSquareIcon,
+	progress: GaugeIcon,
+	"radio-group": CircleDotIcon,
+	"range-calendar": CalendarRangeIcon,
+	resizable: GripVerticalIcon,
+	"scroll-area": ScrollTextIcon,
+	select: ListIcon,
+	separator: SeparatorHorizontalIcon,
+	sheet: PanelRightIcon,
+	sidebar: PanelLeftIcon,
+	skeleton: RectangleEllipsisIcon,
+	slider: SlidersHorizontalIcon,
+	sonner: BellIcon,
+	spinner: LoaderCircleIcon,
+	switch: ToggleLeftIcon,
+	table: TableIcon,
+	tabs: LayersIcon,
+	textarea: NotepadTextIcon,
+	toggle: BoldIcon,
+	"toggle-group": Rows3Icon,
+	tooltip: MessageCircleIcon,
+	appearance: SwatchBookIcon,
+	haptics: VibrateIcon,
+	"page-title": Heading1Icon,
+	password: AsteriskIcon,
+	toast: MessageSquareTextIcon,
+	utils: WrenchIcon,
 };
 
-const modules: Record<string, Entry> = {
-	appearance: [
-		SwatchBookIcon,
-		"Apply a saved accent, theme, font and corners to <html>.",
-	],
-	haptics: [VibrateIcon, "A short vibration on tap, success or error."],
-	"page-title": [
-		Heading1Icon,
-		"One page title for the app bar, the header and the tab.",
-	],
-	password: [
-		AsteriskIcon,
-		"The password rules and strength score, for the form and the server alike.",
-	],
-	toast: [
-		MessageSquareTextIcon,
-		"Narrate a form action through one promise toast.",
-	],
-	utils: [
-		WrenchIcon,
-		"cn to merge Tailwind classes, and the prop helper types.",
-	],
-};
-
-function docs(entries: Record<string, Entry>): Doc[] {
-	return Object.entries(entries).map(([slug, [icon, description]]) => ({
-		slug,
-		name: slug.charAt(0).toUpperCase() + slug.slice(1).replaceAll("-", " "),
-		description,
-		icon,
-	}));
-}
-
-export const groups: Record<
+export const groups = Object.fromEntries(
+	Object.entries(catalog).map(([group, { docs, ...meta }]) => [
+		group,
+		{
+			...meta,
+			icon: groupIcons[group as Group],
+			docs: docs.map((doc) => ({ ...doc, icon: icons[doc.slug] ?? BoxIcon })),
+		},
+	]),
+) as Record<
 	Group,
 	{ label: string; description: string; icon: Icon; docs: Doc[] }
-> = {
-	blocks: {
-		label: "Blocks",
-		description: "App-level pieces the apps shared copies of.",
-		icon: BlocksIcon,
-		docs: docs(blocks),
-	},
-	primitives: {
-		label: "Primitives",
-		description: "The shadcn-svelte components, as the apps customised them.",
-		icon: ComponentIcon,
-		docs: docs(primitives),
-	},
-	modules: {
-		label: "Modules",
-		description: "Helpers for toasts, titles, appearance and haptics.",
-		icon: BracesIcon,
-		docs: docs(modules),
-	},
-};
-
-export function isGroup(value: string): value is Group {
-	return Object.hasOwn(groups, value);
-}
+>;
 
 export function findDoc(group: string, slug: string): Doc | undefined {
 	return isGroup(group)

@@ -1,4 +1,4 @@
-import { llmsIndex } from "../../docs/llms.js";
+import { llmsIndex } from "../../docs/content.js";
 
 export function GET({ url }) {
 	return new Response(llmsIndex(url.origin), {

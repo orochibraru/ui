@@ -6,11 +6,11 @@
 </script>
 
 <div>
-	<Button variant="outline" onclick={() => (open = true)}>Edit expense</Button>
+	<Button variant="outline" onclick={() => (open = true)}>Edit profile</Button>
 </div>
 <ResponsiveSheet
 	bind:open
-	title="Edit expense"
+	title="Edit profile"
 	description="A dialog on desktop, a drawer on phones."
 >
 	<p class="pb-6 text-sm">Resize the window to see it switch.</p>

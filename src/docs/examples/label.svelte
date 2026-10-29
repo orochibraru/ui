@@ -6,11 +6,11 @@
 
 <div class="flex flex-wrap items-end gap-6">
 	<div class="flex flex-col gap-2">
-		<Label for="group-name">Group name</Label>
-		<Input id="group-name" placeholder="Summer trip" />
+		<Label for="project-name">Project name</Label>
+		<Input id="project-name" placeholder="Marketing site" />
 	</div>
 	<div class="flex h-9 items-center gap-2">
-		<Checkbox id="group-notify" />
-		<Label for="group-notify">Notify members</Label>
+		<Checkbox id="project-notify" />
+		<Label for="project-notify">Notify team members</Label>
 	</div>
 </div>

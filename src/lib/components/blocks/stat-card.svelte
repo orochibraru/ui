@@ -31,7 +31,7 @@
 <svelte:element
 	this={href ? "a" : "div"}
 	{href}
-	class="glass flex items-start gap-3 rounded-2xl p-4 transition-colors {href
+	class="glass flex min-w-0 items-start gap-3 rounded-2xl p-4 transition-colors {href
 		? 'hover:border-primary/40 active:bg-muted'
 		: ''}"
 >

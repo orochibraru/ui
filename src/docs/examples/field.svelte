@@ -3,36 +3,36 @@
 	import { Input } from "#lib/components/ui/input/index.js";
 	import { Switch } from "#lib/components/ui/switch/index.js";
 
-	let amount = $state("");
-	const invalid = $derived(amount !== "" && Number(amount) <= 0);
+	let estimate = $state("");
+	const invalid = $derived(estimate !== "" && Number(estimate) <= 0);
 </script>
 
 <Field.Set>
-	<Field.Legend>New expense</Field.Legend>
-	<Field.Description>Split between everyone in the group.</Field.Description>
+	<Field.Legend>New task</Field.Legend>
+	<Field.Description>Visible to everyone in the project.</Field.Description>
 	<Field.Group class="grid gap-6 md:grid-cols-2">
 		<Field.Field>
-			<Field.Label for="expense-title">Title</Field.Label>
-			<Input id="expense-title" placeholder="Groceries" />
+			<Field.Label for="task-title">Title</Field.Label>
+			<Input id="task-title" placeholder="Write the release notes" />
 		</Field.Field>
 		<Field.Field data-invalid={invalid}>
-			<Field.Label for="expense-amount">Amount</Field.Label>
+			<Field.Label for="task-estimate">Estimate</Field.Label>
 			<Input
-				id="expense-amount"
+				id="task-estimate"
 				type="number"
-				placeholder="0.00"
+				placeholder="0"
 				aria-invalid={invalid}
-				bind:value={amount}
+				bind:value={estimate}
 			/>
 			{#if invalid}
-				<Field.Error>The amount must be greater than zero.</Field.Error>
+				<Field.Error>The estimate must be greater than zero.</Field.Error>
 			{:else}
-				<Field.Description>In euros.</Field.Description>
+				<Field.Description>In hours.</Field.Description>
 			{/if}
 		</Field.Field>
 		<Field.Field orientation="horizontal">
-			<Switch id="expense-recurring" />
-			<Field.Label for="expense-recurring">Repeat every month</Field.Label>
+			<Switch id="task-recurring" />
+			<Field.Label for="task-recurring">Repeat every week</Field.Label>
 		</Field.Field>
 	</Field.Group>
 </Field.Set>

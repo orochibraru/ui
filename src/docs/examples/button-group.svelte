@@ -25,7 +25,7 @@
 	</ButtonGroup.Root>
 	<ButtonGroup.Root>
 		<ButtonGroup.Text>https://</ButtonGroup.Text>
-		<Input value="api.homerun.dev" aria-label="Domain" />
+		<Input value="acme.com" aria-label="Domain" />
 		<Button variant="outline" size="icon" aria-label="Copy">
 			<CopyIcon />
 		</Button>

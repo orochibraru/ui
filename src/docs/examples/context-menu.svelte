@@ -13,7 +13,7 @@
 	<ContextMenu.Trigger
 		class="text-muted-foreground flex h-36 w-full items-center justify-center rounded-lg border border-dashed text-sm"
 	>
-		Right-click (or long-press) the expense list
+		Right-click (or long-press) the file list
 	</ContextMenu.Trigger>
 	<ContextMenu.Content class="w-56">
 		<ContextMenu.Item>
@@ -22,10 +22,10 @@
 		</ContextMenu.Item>
 		<ContextMenu.Item><CopyIcon /> Duplicate</ContextMenu.Item>
 		<ContextMenu.Sub>
-			<ContextMenu.SubTrigger>Move to group</ContextMenu.SubTrigger>
+			<ContextMenu.SubTrigger>Move to project</ContextMenu.SubTrigger>
 			<ContextMenu.SubContent>
-				<ContextMenu.Item>Lisbon trip</ContextMenu.Item>
-				<ContextMenu.Item>Flatmates</ContextMenu.Item>
+				<ContextMenu.Item>Website redesign</ContextMenu.Item>
+				<ContextMenu.Item>Mobile app</ContextMenu.Item>
 			</ContextMenu.SubContent>
 		</ContextMenu.Sub>
 		<ContextMenu.Separator />
@@ -37,7 +37,7 @@
 			<ContextMenu.GroupHeading>Sort by</ContextMenu.GroupHeading>
 			<ContextMenu.RadioGroup bind:value={sort}>
 				<ContextMenu.RadioItem value="date">Date</ContextMenu.RadioItem>
-				<ContextMenu.RadioItem value="amount">Amount</ContextMenu.RadioItem>
+				<ContextMenu.RadioItem value="name">Name</ContextMenu.RadioItem>
 			</ContextMenu.RadioGroup>
 		</ContextMenu.Group>
 		<ContextMenu.Separator />

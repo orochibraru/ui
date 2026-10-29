@@ -10,16 +10,16 @@
 		<InputGroup.Addon>
 			<SearchIcon />
 		</InputGroup.Addon>
-		<InputGroup.Input placeholder="Search expenses" />
+		<InputGroup.Input placeholder="Search files" />
 	</InputGroup.Root>
 	<InputGroup.Root>
-		<InputGroup.Input type="number" placeholder="0.00" />
+		<InputGroup.Input type="number" placeholder="25" />
 		<InputGroup.Addon align="inline-end">
-			<InputGroup.Text>EUR</InputGroup.Text>
+			<InputGroup.Text>MB</InputGroup.Text>
 		</InputGroup.Addon>
 	</InputGroup.Root>
 	<InputGroup.Root>
-		<InputGroup.Input readonly value="https://homerun.dev/s/api" />
+		<InputGroup.Input readonly value="https://acme.com/s/report" />
 		<InputGroup.Addon align="inline-end">
 			<InputGroup.Button size="icon-xs" aria-label="Copy URL">
 				<CopyIcon />

@@ -5,7 +5,7 @@
 </script>
 
 {@render children()}
-<InstallPrompt appName="OpenCount" storageKey="opencount-install-prompt">
+<InstallPrompt appName="Acme" storageKey="acme-install-prompt">
 	{#snippet brand()}
 		<img src="/icon-192.png" alt="" class="size-14 rounded-2xl" />
 	{/snippet}

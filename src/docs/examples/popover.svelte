@@ -7,18 +7,18 @@
 
 <Popover.Root>
 	<Popover.Trigger class={buttonVariants({ variant: "outline" })}>
-		Set budget
+		Set storage limit
 	</Popover.Trigger>
 	<Popover.Content>
 		<Popover.Header>
-			<Popover.Title>Monthly budget</Popover.Title>
+			<Popover.Title>Storage limit</Popover.Title>
 			<Popover.Description>
-				We'll warn the group when spending gets close.
+				We'll warn the team when the workspace gets close.
 			</Popover.Description>
 		</Popover.Header>
 		<div class="flex flex-col gap-2">
-			<Label for="budget-amount">Amount (EUR)</Label>
-			<Input id="budget-amount" type="number" value="800" />
+			<Label for="storage-limit">Limit (GB)</Label>
+			<Input id="storage-limit" type="number" value="100" />
 		</div>
 	</Popover.Content>
 </Popover.Root>

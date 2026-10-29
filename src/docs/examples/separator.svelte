@@ -4,14 +4,14 @@
 
 <div class="grid gap-4">
 	<div class="grid gap-1">
-		<h4 class="text-sm font-medium">Weekend in Lyon</h4>
-		<p class="text-sm text-muted-foreground">4 members, 23 expenses</p>
+		<h4 class="text-sm font-medium">Marketing site</h4>
+		<p class="text-sm text-muted-foreground">4 members, 23 tasks</p>
 	</div>
 	<Separator />
 	<div class="flex h-5 items-center gap-4 text-sm">
-		<a href="#expenses">Expenses</a>
+		<a href="#overview">Overview</a>
 		<Separator orientation="vertical" />
-		<a href="#balances">Balances</a>
+		<a href="#tasks">Tasks</a>
 		<Separator orientation="vertical" />
 		<a href="#settings">Settings</a>
 	</div>

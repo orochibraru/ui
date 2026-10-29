@@ -14,6 +14,7 @@
 			icon={ChevronLeftIcon}
 			href={title.backHref}
 			variant="outline"
+			class="print:hidden"
 		/>
 	{/if}
 	<h1 class="min-w-0 flex-1 truncate text-2xl font-semibold tracking-tight">

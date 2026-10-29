@@ -16,7 +16,7 @@
 				</Button>
 			{/snippet}
 		</Tooltip.Trigger>
-		<Tooltip.Content>Edit expense</Tooltip.Content>
+		<Tooltip.Content>Edit file</Tooltip.Content>
 	</Tooltip.Root>
 	<Tooltip.Root>
 		<Tooltip.Trigger>

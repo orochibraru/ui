@@ -7,5 +7,5 @@
 	providePageTitle();
 </script>
 
-<DocumentTitle appName="OpenCount" />
+<DocumentTitle appName="Acme" />
 {@render children()}

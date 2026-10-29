@@ -1,39 +1,39 @@
 <script lang="ts">
 	import * as Table from "#lib/components/ui/table/index.js";
 
-	const expenses = [
-		{ id: 1, label: "Groceries", paidBy: "Alex", date: "Mar 12", amount: 64.2 },
+	const files = [
+		{ id: 1, name: "Roadmap.pdf", owner: "Alex", date: "Mar 12", size: 2.4 },
 		{
 			id: 2,
-			label: "Train tickets",
-			paidBy: "Sam",
+			name: "Brand assets.zip",
+			owner: "Sam",
 			date: "Mar 14",
-			amount: 118,
+			size: 118,
 		},
-		{ id: 3, label: "Dinner", paidBy: "Lou", date: "Mar 15", amount: 87.5 },
+		{ id: 3, name: "Notes.md", owner: "Lou", date: "Mar 15", size: 0.2 },
 	];
 
-	const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+	const total = files.reduce((sum, file) => sum + file.size, 0);
 </script>
 
 <Table.Root>
-	<Table.Caption>Weekend in Lyon, March expenses.</Table.Caption>
+	<Table.Caption>Shared files, updated in March.</Table.Caption>
 	<Table.Header>
 		<Table.Row>
-			<Table.Head>Expense</Table.Head>
-			<Table.Head>Paid by</Table.Head>
-			<Table.Head>Date</Table.Head>
-			<Table.Head class="text-right">Amount</Table.Head>
+			<Table.Head>File</Table.Head>
+			<Table.Head>Owner</Table.Head>
+			<Table.Head>Modified</Table.Head>
+			<Table.Head class="text-right">Size</Table.Head>
 		</Table.Row>
 	</Table.Header>
 	<Table.Body>
-		{#each expenses as expense (expense.id)}
+		{#each files as file (file.id)}
 			<Table.Row>
-				<Table.Cell class="font-medium">{expense.label}</Table.Cell>
-				<Table.Cell>{expense.paidBy}</Table.Cell>
-				<Table.Cell>{expense.date}</Table.Cell>
+				<Table.Cell class="font-medium">{file.name}</Table.Cell>
+				<Table.Cell>{file.owner}</Table.Cell>
+				<Table.Cell>{file.date}</Table.Cell>
 				<Table.Cell class="text-right tabular">
-					{expense.amount.toFixed(2)} €
+					{file.size.toFixed(1)} MB
 				</Table.Cell>
 			</Table.Row>
 		{/each}
@@ -41,7 +41,7 @@
 	<Table.Footer>
 		<Table.Row>
 			<Table.Cell colspan={3}>Total</Table.Cell>
-			<Table.Cell class="text-right tabular">{total.toFixed(2)} €</Table.Cell>
+			<Table.Cell class="text-right tabular">{total.toFixed(1)} MB</Table.Cell>
 		</Table.Row>
 	</Table.Footer>
 </Table.Root>

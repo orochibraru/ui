@@ -8,8 +8,8 @@
 
 <EmptyState
 	icon={InboxIcon}
-	title="No expenses yet"
-	subtitle="Add the first one and it shows up here."
+	title="No messages yet"
+	subtitle="Start a conversation and it shows up here."
 >
-	<Button><PlusIcon /> Add expense</Button>
+	<Button><PlusIcon /> New message</Button>
 </EmptyState>

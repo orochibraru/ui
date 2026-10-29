@@ -6,13 +6,13 @@
 
 	const { data } = $props();
 
-	setPageTitle(() => data.group.name, "/groups", [
+	setPageTitle(() => data.project.name, "/projects", [
 		{
-			label: "Add expense",
+			label: "New task",
 			icon: PlusIcon,
-			href: "/expenses/new",
+			href: "/tasks/new",
 			primary: true,
 		},
-		{ label: "Edit group", icon: PencilIcon, href: "/groups/edit" },
+		{ label: "Edit project", icon: PencilIcon, href: "/projects/edit" },
 	]);
 </script>

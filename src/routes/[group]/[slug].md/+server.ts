@@ -1,14 +1,15 @@
 import { error } from "@sveltejs/kit";
 
-import { docMarkdown } from "../../../docs/llms.js";
-import { findDoc, isGroup } from "../../../docs/registry.js";
+import { isGroup } from "../../../docs/catalog.js";
+import { docMarkdown, findBySlug } from "../../../docs/content.js";
+import { content } from "../../../docs/sources.server.js";
 
 export function GET({ params }) {
-	const doc = findDoc(params.group, params.slug);
-	if (!isGroup(params.group) || !doc) {
+	const found = findBySlug(params.slug);
+	if (!isGroup(params.group) || found?.group !== params.group) {
 		error(404, "Not found");
 	}
-	return new Response(docMarkdown({ group: params.group, doc }), {
+	return new Response(docMarkdown(content, found), {
 		headers: { "content-type": "text/markdown; charset=utf-8" },
 	});
 }

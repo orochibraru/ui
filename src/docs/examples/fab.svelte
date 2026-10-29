@@ -9,4 +9,4 @@
 	Phones only: narrow the window and it floats bottom right, above the tab bar.
 	On desktop the same action is a primary button in the page header.
 </p>
-<Fab label="Add expense" icon={PlusIcon} onclick={() => toast("Fab tapped.")} />
+<Fab label="New task" icon={PlusIcon} onclick={() => toast("Fab tapped.")} />
