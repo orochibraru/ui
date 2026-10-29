@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1](https://github.com/orochibraru/ui/compare/v1.0.0...v1.0.1) (2026-10-29)
+
+### Features
+
+* add a file dropzone, label props on password and OTP fields, and a landscape phone preview ([968c49d](https://github.com/orochibraru/ui/commit/968c49d0d646cce2b5174c52439f62f6e269180b))
+
 ## 1.0.0 (2026-10-29)
 
 ### Features
