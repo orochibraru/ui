@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/orochibraru/ui/compare/v1.0.1...v1.0.2) (2026-10-29)
+
+### Bug Fixes
+
+* hide stale server errors once the password is edited and allow pasting formatted OTP codes ([b462a78](https://github.com/orochibraru/ui/commit/b462a789d63232e9e73c41166098877e64023a6a))
+* accessibilityt ([b889cf7](https://github.com/orochibraru/ui/commit/b889cf70492fa6bfa3a28a2de7e57f8f6e9f8a9f))
+
 ## [1.0.1](https://github.com/orochibraru/ui/compare/v1.0.0...v1.0.1) (2026-10-29)
 
 ### Features
