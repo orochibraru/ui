@@ -53,6 +53,7 @@
 			pattern="^\d+$"
 			inputmode="numeric"
 			autocomplete="one-time-code"
+			pasteTransformer={(text) => text.replace(/\D/g, "")}
 			{name}
 			{inputId}
 			{disabled}

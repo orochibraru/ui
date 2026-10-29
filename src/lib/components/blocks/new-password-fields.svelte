@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CheckIcon from "@lucide/svelte/icons/check";
 	import XIcon from "@lucide/svelte/icons/x";
+	import { untrack } from "svelte";
 
 	import PasswordInput from "#lib/components/blocks/password-input.svelte";
 	import * as Field from "#lib/components/ui/field/index.js";
@@ -62,6 +63,13 @@
 		"bg-primary",
 	];
 	const mismatch = $derived(confirmation.length > 0 && confirmation !== value);
+	const submitted = $derived.by(() => {
+		void errors;
+		return untrack(() => ({ value, confirmation }));
+	});
+	const edited = $derived(
+		value !== submitted.value || confirmation !== submitted.confirmation,
+	);
 </script>
 
 <Field.Field>
@@ -103,7 +111,11 @@
 			</li>
 		{/each}
 	</ul>
-	<Field.Error errors={errors.password?.map((message) => ({ message }))} />
+	<Field.Error
+		errors={edited
+			? undefined
+			: errors.password?.map((message) => ({ message }))}
+	/>
 </Field.Field>
 <Field.Field>
 	<Field.Label for="confirm-password">{text.confirm}</Field.Label>
@@ -122,6 +134,8 @@
 		<p class="text-destructive text-sm">{text.mismatch}</p>
 	{/if}
 	<Field.Error
-		errors={errors.confirmPassword?.map((message) => ({ message }))}
+		errors={edited
+			? undefined
+			: errors.confirmPassword?.map((message) => ({ message }))}
 	/>
 </Field.Field>
