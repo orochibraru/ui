@@ -9,7 +9,7 @@
 	},
 	"type": "module",
 	"bin": {
-		"orochibraru-ui-mcp": "./dist/mcp.js"
+		"orochibraru-ui-mcp": "dist/mcp.js"
 	},
 	"packageManager": "bun@1.4.4",
 	"files": [
