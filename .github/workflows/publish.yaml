@@ -1,0 +1,183 @@
+name: Publish
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**"
+      - "!docs/**"
+      - "!**/*.md"
+      - "CHANGELOG.md"
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+env:
+  TZ: Europe/Paris
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  CI: true
+  RELEASE_RULES: breaking=major,feat=patch,docs=patch,refactor=patch,style=patch,test=patch,build=patch,ci=patch,chore=patch
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    name: Resolve Release
+    runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.mode.outputs.mode }}
+      version: ${{ steps.releaser.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Dry-run release to compute the next version
+        id: releaser
+        uses: orochibraru/releaser@5f572d5bd52a72b28860dfb7489835c2828e4112 # v1.7.2
+        with:
+          branch: main
+          rules: ${{ env.RELEASE_RULES }}
+          prerelease: canary
+          release-pr: "true"
+          dry-run: "true"
+
+      - name: Tell a merged release PR from a canary push
+        id: mode
+        env:
+          VERSION: ${{ steps.releaser.outputs.version }}
+          PRERELEASE: ${{ steps.releaser.outputs.prerelease }}
+        run: |
+          subject="$(git log -1 --format=%s)"
+          if [[ "$subject" =~ ^chore\(release\):\ [0-9]+\.[0-9]+\.[0-9]+(\ \(#[0-9]+\))?$ ]]; then
+            if [ -z "$VERSION" ] || [ "$PRERELEASE" != "false" ]; then
+              echo "::error::Merged release PR ($subject), but releaser would release '$VERSION'."
+              exit 1
+            fi
+            echo "Merged release PR: publishing $VERSION as latest."
+            echo "mode=stable" >> "$GITHUB_OUTPUT"
+          elif [ "$PRERELEASE" = "true" ]; then
+            echo "This push publishes canary $VERSION."
+            echo "mode=canary" >> "$GITHUB_OUTPUT"
+          else
+            echo "No Conventional Commit since the last canary: nothing to publish."
+            echo "mode=none" >> "$GITHUB_OUTPUT"
+          fi
+
+  code_quality:
+    name: Code Quality
+    needs: [version]
+    if: needs.version.outputs.mode == 'canary'
+    uses: ./.github/workflows/code_quality.yaml
+
+  npm:
+    name: Publish ${{ needs.version.outputs.version }} to npm
+    needs: [version, code_quality]
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') &&
+      needs.version.outputs.mode != 'none' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Check the last canary is what this release ships
+        if: needs.version.outputs.mode == 'stable'
+        env:
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          set -euo pipefail
+          tag="$(git tag --list "v$VERSION-canary.*" --sort=-v:refname | head -n1)"
+          if [ -z "$tag" ]; then
+            echo "::error::No v$VERSION-canary.* tag to release."
+            exit 1
+          fi
+          commit="$(git rev-parse "$tag^{commit}")"
+          drift="$(git diff --name-only "$commit" HEAD -- . ':(glob,exclude)docs/**' ':(glob,exclude)**/*.md' ':(exclude)package.json')"
+          if [ -n "$drift" ] || [ "$(git show "$commit:package.json" | jq -S 'del(.version)')" != "$(jq -S 'del(.version)' package.json)" ]; then
+            echo "::error::The release PR carries changes $tag wasn't published from. Let Publish finish on main, then re-run this workflow."
+            echo "$drift"
+            exit 1
+          fi
+          echo "Releasing $tag ($commit)."
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: package.json
+
+      - name: Setup Node for npm
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile --ignore-scripts
+
+      - name: Set the version
+        env:
+          VERSION: ${{ needs.version.outputs.version }}
+        run: npm pkg set version="$VERSION"
+
+      - name: Build the package
+        run: bun run build
+
+      - name: Publish
+        env:
+          VERSION: ${{ needs.version.outputs.version }}
+          DIST_TAG: ${{ needs.version.outputs.mode == 'stable' && 'latest' || 'canary' }}
+        run: |
+          name="$(jq -r .name package.json)"
+          if npm view "$name@$VERSION" version >/dev/null 2>&1; then
+            echo "$name@$VERSION is already on npm."
+            exit 0
+          fi
+          npm publish --ignore-scripts --provenance --access public --tag "$DIST_TAG"
+
+  release:
+    name: Release ${{ needs.version.outputs.version }}
+    runs-on: ubuntu-latest
+    needs: [version, npm]
+    if: ${{ !cancelled() && needs.npm.result == 'success' }}
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.RELEASE_DEPLOY_KEY }} # zizmor: ignore[artipacked]
+
+      - name: Tag, release and update the release PR
+        id: releaser
+        uses: orochibraru/releaser@5f572d5bd52a72b28860dfb7489835c2828e4112 # v1.7.2
+        with:
+          branch: main
+          rules: ${{ env.RELEASE_RULES }}
+          prerelease: canary
+          release-pr: "true"
+
+      - name: Fail if the release doesn't match the npm version
+        if: steps.releaser.outputs.version != needs.version.outputs.version
+        env:
+          RELEASED: ${{ steps.releaser.outputs.version }}
+          EXPECTED: ${{ needs.version.outputs.version }}
+        run: |
+          echo "::error::releaser released '$RELEASED', but npm got '$EXPECTED'."
+          exit 1
+
+      - name: Keep only the last five canary releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release list --limit 100 --json tagName,isPrerelease \
+            --jq '[.[] | select(.isPrerelease)] | .[5:] | .[].tagName' \
+            | xargs -r -n1 gh release delete --yes

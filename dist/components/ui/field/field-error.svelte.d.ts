@@ -1,0 +1,12 @@
+import type { Snippet } from "svelte";
+import type { HTMLAttributes } from "svelte/elements";
+import { type WithElementRef } from "../../../utils.js";
+type $$ComponentProps = WithElementRef<HTMLAttributes<HTMLDivElement>> & {
+    children?: Snippet;
+    errors?: {
+        message?: string;
+    }[];
+};
+declare const FieldError: import("svelte").Component<$$ComponentProps, {}, "ref">;
+type FieldError = ReturnType<typeof FieldError>;
+export default FieldError;
