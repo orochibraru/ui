@@ -55,6 +55,9 @@ spinner, switch, table, tabs, textarea, toggle, toggle-group, tooltip.
 `input` turns password managers off on fields that don't set `autocomplete`, so
 a search box never gets a login suggestion.
 
+`button` takes `loading`: it disables the button and shows a spinner in place of
+its label, keeping its width, so a pending submit can't be clicked twice.
+
 ## Components
 
 Under `@orochibraru/ui/components/<name>`: one import, data in. Where a
@@ -269,9 +272,9 @@ packages `dist/` and runs publint.
 
 New upstream components come from the shadcn-svelte CLI (`components.json` is
 set up), followed by `node_modules/.bin/tailwint --fix` on the new files. The
-CLI overwrites any customised primitive a new one depends on (drawer, input and
-sonner carry the apps' changes): copy those aside before `add --overwrite` and
-put them back after.
+CLI overwrites any customised primitive a new one depends on (button, drawer,
+input and sonner carry the apps' changes): copy those aside before
+`add --overwrite` and put them back after.
 
 Dependencies use caret ranges, unlike the apps' exact pins, so a consuming app
 dedupes `bits-ui` and friends with its own copy instead of bundling two.
