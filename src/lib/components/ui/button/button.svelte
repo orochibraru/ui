@@ -5,6 +5,7 @@
 	} from "svelte/elements";
 	import { tv, type VariantProps } from "tailwind-variants";
 
+	import { Spinner } from "#lib/components/ui/spinner/index.js";
 	import { cn, type WithElementRef } from "#lib/utils.js";
 
 	export const buttonVariants = tv({
@@ -50,6 +51,7 @@
 		WithElementRef<HTMLAnchorAttributes> & {
 			variant?: ButtonVariant;
 			size?: ButtonSize;
+			loading?: boolean;
 		};
 </script>
 
@@ -62,33 +64,55 @@
 		href = undefined,
 		type = "button",
 		disabled,
+		loading = false,
 		children,
 		...restProps
 	}: ButtonProps = $props();
+
+	const inert = $derived(disabled || loading);
 </script>
+
+{#snippet content()}
+	{#if loading}
+		<span class="invisible contents">{@render children?.()}</span>
+		<Spinner class="absolute inset-0 m-auto" />
+	{:else}
+		{@render children?.()}
+	{/if}
+{/snippet}
 
 {#if href}
 	<a
 		bind:this={ref}
 		data-slot="button"
-		class={cn(buttonVariants({ variant, size }), className)}
-		href={disabled ? undefined : href}
-		aria-disabled={disabled}
-		role={disabled ? "link" : undefined}
-		tabindex={disabled ? -1 : undefined}
+		class={cn(
+			buttonVariants({ variant, size }),
+			loading && "relative",
+			className,
+		)}
+		href={inert ? undefined : href}
+		aria-disabled={inert}
+		aria-busy={loading || undefined}
+		role={inert ? "link" : undefined}
+		tabindex={inert ? -1 : undefined}
 		{...restProps}
 	>
-		{@render children?.()}
+		{@render content()}
 	</a>
 {:else}
 	<button
 		bind:this={ref}
 		data-slot="button"
-		class={cn(buttonVariants({ variant, size }), className)}
+		class={cn(
+			buttonVariants({ variant, size }),
+			loading && "relative",
+			className,
+		)}
 		{type}
-		{disabled}
+		disabled={inert}
+		aria-busy={loading || undefined}
 		{...restProps}
 	>
-		{@render children?.()}
+		{@render content()}
 	</button>
 {/if}

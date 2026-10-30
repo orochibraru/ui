@@ -262,7 +262,10 @@ export const catalog: Record<
 			avatar: ["Display", "A user's picture, falling back to initials."],
 			badge: ["Display", "A small label for a status or a count."],
 			breadcrumb: ["Navigation", "The path from the root to the current page."],
-			button: ["Actions", "Every button variant and size."],
+			button: [
+				"Actions",
+				"Every button variant and size, and its loading state.",
+			],
 			"button-group": ["Actions", "Buttons joined into one control."],
 			calendar: ["Forms", "A month grid to pick a date."],
 			card: ["Display", "A surface with a header, content and footer."],
