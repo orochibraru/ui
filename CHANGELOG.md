@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.3](https://github.com/orochibraru/ui/compare/v1.0.2...v1.0.3) (2026-10-30)
+
+### Bug Fixes
+
+* keep responsive grids within the screen on phones ([ed69c9e](https://github.com/orochibraru/ui/commit/ed69c9e2eecc2fab770e49a32bb9bfdc18f0f62f))
+* **responsive-sheet:** keep a dialog's content from widening it and scrolling sideways ([2b7600a](https://github.com/orochibraru/ui/commit/2b7600ab3af45f7fe6d4a48679121e0ce17e6175))
+* **responsive-sheet:** drag the drawer closed from its content, and keep taps above it closing ([8c33753](https://github.com/orochibraru/ui/commit/8c33753a899710ffecb56a0281ac2698a31eda51))
+* **drawer:** pin the page behind an open drawer so it drags closed over a scrolled page ([ee7b9cd](https://github.com/orochibraru/ui/commit/ee7b9cd23ce7a7f8f38ba3c4af218d43be11a317))
+
 ## [1.0.2](https://github.com/orochibraru/ui/compare/v1.0.1...v1.0.2) (2026-10-29)
 
 ### Bug Fixes
