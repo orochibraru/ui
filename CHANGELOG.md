@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.4](https://github.com/orochibraru/ui/compare/v1.0.3...v1.0.4) (2026-10-30)
+
+### Features
+
+* **button:** add a loading prop that disables it and shows a spinner (#5) ([c478324](https://github.com/orochibraru/ui/commit/c47832477045af3ce08e7e9fd3bf9c56070bf227))
+
 ## [1.0.3](https://github.com/orochibraru/ui/compare/v1.0.2...v1.0.3) (2026-10-30)
 
 ### Bug Fixes

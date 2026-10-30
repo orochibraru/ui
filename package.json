@@ -1,6 +1,6 @@
 {
 	"name": "@orochibraru/ui",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Svelte 5 components and theme shared by OpenCount, LocalAssistant, Homerun, Sergio's, Nuvio Web and Penombre.",
 	"license": "MIT",
 	"repository": {
