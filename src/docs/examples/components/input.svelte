@@ -4,7 +4,7 @@
 	let email = $state("");
 </script>
 
-<div class="grid gap-4 md:grid-cols-2">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 	<Input
 		label="Email"
 		name="email"

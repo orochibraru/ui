@@ -5,7 +5,7 @@
 	let due = $state("2026-06-15");
 </script>
 
-<div class="grid gap-4 md:grid-cols-2">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 	<DateField
 		label="Start date"
 		name="start"

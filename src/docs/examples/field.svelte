@@ -10,7 +10,7 @@
 <Field.Set>
 	<Field.Legend>New task</Field.Legend>
 	<Field.Description>Visible to everyone in the project.</Field.Description>
-	<Field.Group class="grid gap-6 md:grid-cols-2">
+	<Field.Group class="grid grid-cols-1 gap-6 md:grid-cols-2">
 		<Field.Field>
 			<Field.Label for="task-title">Title</Field.Label>
 			<Input id="task-title" placeholder="Write the release notes" />

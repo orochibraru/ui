@@ -3,7 +3,7 @@
 	import { Label } from "#lib/components/ui/label/index.js";
 </script>
 
-<div class="grid gap-4 md:grid-cols-2">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 	<div class="flex flex-col gap-2">
 		<Label for="account-email">Email</Label>
 		<Input

@@ -10,7 +10,7 @@
 	method="POST"
 	action="?/save"
 	use:enhance={saveToast("Profile")}
-	class="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end"
+	class="grid grid-cols-1 gap-4 sm:grid-cols-[1fr_auto] sm:items-end"
 >
 	<Input
 		label="Name"

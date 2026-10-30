@@ -5,7 +5,7 @@
 	import * as InputGroup from "#lib/components/ui/input-group/index.js";
 </script>
 
-<div class="grid gap-4 md:grid-cols-3">
+<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 	<InputGroup.Root>
 		<InputGroup.Addon>
 			<SearchIcon />

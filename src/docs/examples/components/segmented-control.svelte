@@ -9,7 +9,7 @@
 	let period = $state("week");
 </script>
 
-<div class="grid gap-6 md:grid-cols-2">
+<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 	<SegmentedControl
 		label="Role"
 		name="role"

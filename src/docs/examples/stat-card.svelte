@@ -7,7 +7,7 @@
 	import StatCard from "#lib/components/blocks/stat-card.svelte";
 </script>
 
-<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 	<StatCard label="Projects" value={12} hint="This month" icon={FolderIcon} />
 	<StatCard
 		label="Active members"

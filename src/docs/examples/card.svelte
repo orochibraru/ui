@@ -5,7 +5,7 @@
 	import * as Card from "#lib/components/ui/card/index.js";
 </script>
 
-<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
 	<Card.Root>
 		<Card.Header>
 			<Card.Title>Website redesign</Card.Title>
