@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.5](https://github.com/orochibraru/ui/compare/v1.0.4...v1.0.5) (2026-11-06)
+
+### Bug Fixes
+
+* **deps:** update minor and patch updates (#9) ([ed7263b](https://github.com/orochibraru/ui/commit/ed7263bc4babf8ffe47e8145e261d6da8aef483a))
+
 ## [1.0.4](https://github.com/orochibraru/ui/compare/v1.0.3...v1.0.4) (2026-10-30)
 
 ### Features
