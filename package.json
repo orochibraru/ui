@@ -125,7 +125,7 @@
 	},
 	"devDependencies": {
 		"@happy-dom/global-registrator": "21.0.4",
-		"@j178/prek": "0.5.7",
+		"@j178/prek": "0.5.10",
 		"@modelcontextprotocol/sdk": "1.32.2",
 		"@opentelemetry/context-async-hooks": "3.0.0",
 		"@opentelemetry/exporter-trace-otlp-proto": "0.300.0",
@@ -140,7 +140,7 @@
 		"@types/bun": "1.4.4",
 		"markdownlint-cli2": "0.24.0",
 		"oxlint": "1.90.0",
-		"oxlint-tsgolint": "7.0.2005",
+		"oxlint-tsgolint": "7.0.2006",
 		"publint": "0.3.25",
 		"shiki": "4.5.0",
 		"svelte": "5.57.3",
@@ -148,7 +148,7 @@
 		"tailwindcss": "4.3.3",
 		"tailwint": "1.1.16",
 		"typescript": "6.0.3",
-		"vite": "8.3.5",
+		"vite": "8.3.6",
 		"zod": "4.6.7"
 	},
 	"keywords": [
