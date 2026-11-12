@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@orochibraru/ui",
+      "name": "@zedensix/ui",
       "dependencies": {
         "@internationalized/date": "^3.12.4",
         "@lucide/svelte": "^1.64.0",
