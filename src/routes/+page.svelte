@@ -13,7 +13,7 @@
 
 	const { data } = $props();
 
-	setPageTitle("@orochibraru/ui");
+	setPageTitle("@zedensix/ui");
 </script>
 
 <div class="grid grid-cols-1 gap-8">
@@ -91,8 +91,7 @@
 		<h2 class="text-lg font-semibold">Primitives</h2>
 		<p class="text-muted-foreground max-w-prose text-sm">
 			The package also exports shadcn-svelte's components as the apps customised
-			them, under <code>@orochibraru/ui/&lt;name&gt;</code>. They're documented
-			on
+			them, under <code>@zedensix/ui/&lt;name&gt;</code>. They're documented on
 			<a
 				class="text-primary underline-offset-4 hover:underline"
 				href={shadcnHref()}>shadcn-svelte</a

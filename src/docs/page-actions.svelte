@@ -24,7 +24,7 @@
 	const markdownHref = $derived(resolve("/[group]/[slug].md", { group, slug }));
 	const markdownUrl = $derived(new URL(markdownHref, page.url.origin).href);
 	const prompt = $derived(
-		`Read ${markdownUrl} so you can help me use the ${name} component of @orochibraru/ui in my SvelteKit app.`,
+		`Read ${markdownUrl} so you can help me use the ${name} component of @zedensix/ui in my SvelteKit app.`,
 	);
 
 	function copyMarkdown() {

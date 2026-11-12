@@ -23,7 +23,7 @@
 >
 	<a href={resolve("/")} class="flex items-center gap-3 px-6 pt-6 pb-4">
 		<span class="bg-primary glow size-8 rounded-xl" aria-hidden="true"></span>
-		<span class="font-semibold">@orochibraru/ui</span>
+		<span class="font-semibold">@zedensix/ui</span>
 	</a>
 	<div class="px-3 pb-3">
 		<button

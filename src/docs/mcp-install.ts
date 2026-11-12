@@ -1,6 +1,6 @@
-const name = "orochibraru-ui";
+const name = "zedensix-ui";
 const command = "npx";
-const args = ["-y", "@orochibraru/ui"];
+const args = ["-y", "@zedensix/ui"];
 
 /** How each IDE installs the package's stdio MCP server: a deep link for Cursor and VS Code, a command for Claude Code. */
 export const mcpServer = {

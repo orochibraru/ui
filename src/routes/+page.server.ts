@@ -1,9 +1,8 @@
 import { highlight } from "../docs/highlight.server.js";
 import { mcpServer } from "../docs/mcp-install.js";
 
-const install = "bun add -d @orochibraru/ui";
-const stylesheet =
-	'@import "tailwindcss";\n@import "@orochibraru/ui/theme.css";';
+const install = "bun add -d @zedensix/ui";
+const stylesheet = '@import "tailwindcss";\n@import "@zedensix/ui/theme.css";';
 
 export async function load() {
 	return {

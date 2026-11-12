@@ -1,15 +1,15 @@
 {
-	"name": "@orochibraru/ui",
+	"name": "@zedensix/ui",
 	"version": "1.0.6",
 	"description": "Svelte 5 components and theme shared by OpenCount, LocalAssistant, Homerun, Sergio's, Nuvio Web and Penombre.",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/orochibraru/ui.git"
+		"url": "git+https://github.com/zedensix/ui.git"
 	},
 	"type": "module",
 	"bin": {
-		"orochibraru-ui-mcp": "dist/mcp.js"
+		"zedensix-ui-mcp": "dist/mcp.js"
 	},
 	"packageManager": "bun@1.4.4",
 	"files": [

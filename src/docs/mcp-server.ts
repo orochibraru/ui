@@ -27,17 +27,17 @@ function text(value: string) {
 /** The docs MCP server, the same for the hosted endpoint and the one the package runs over stdio. */
 export function createMcpServer(content: Content): McpServer {
 	const mcp = new McpServer(
-		{ name: "orochibraru-ui", version: content.version },
+		{ name: "zedensix-ui", version: content.version },
 		{
 			instructions:
-				"Docs for @orochibraru/ui, the Svelte 5 components and theme shared by the orochibraru apps. Start with get_setup to install it, list_components or search_components to find one, then get_component for its usage code.",
+				"Docs for @zedensix/ui, the Svelte 5 components and theme shared by the zedensix apps. Start with get_setup to install it, list_components or search_components to find one, then get_component for its usage code.",
 		},
 	);
 	mcp.registerTool(
 		"get_setup",
 		{
 			description:
-				"How to install @orochibraru/ui, import the theme, theme an app and use the blocks and modules.",
+				"How to install @zedensix/ui, import the theme, theme an app and use the blocks and modules.",
 			annotations: { readOnlyHint: true },
 		},
 		() => text(content.readme),

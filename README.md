@@ -1,4 +1,4 @@
-# @orochibraru/ui
+# @zedensix/ui
 
 Svelte 5 components and the theme shared by OpenCount, LocalAssistant, Homerun,
 Sergio's, Nuvio Web and Penombre: the shadcn-svelte primitives (vega style) as
@@ -10,7 +10,7 @@ Built for SvelteKit 3, Svelte 5 runes and Tailwind CSS v4.
 ## Install
 
 ```bash
-bun add -d @orochibraru/ui
+bun add -d @zedensix/ui
 ```
 
 It goes in `devDependencies`: the app bundles it, so nothing from it is needed
@@ -22,7 +22,7 @@ Import the theme right after Tailwind in the app's root stylesheet:
 
 ```css
 @import "tailwindcss";
-@import "@orochibraru/ui/theme.css";
+@import "@zedensix/ui/theme.css";
 ```
 
 The theme brings the design tokens, the `data-*` state variants the primitives
@@ -35,15 +35,15 @@ Every primitive is a subpath, with the same exports shadcn-svelte generates:
 
 ```svelte
 <script lang="ts">
-  import EmptyState from "@orochibraru/ui/blocks/empty-state";
-  import { Button } from "@orochibraru/ui/button";
-  import * as Dialog from "@orochibraru/ui/dialog";
-  import { cn } from "@orochibraru/ui/utils";
+  import EmptyState from "@zedensix/ui/blocks/empty-state";
+  import { Button } from "@zedensix/ui/button";
+  import * as Dialog from "@zedensix/ui/dialog";
+  import { cn } from "@zedensix/ui/utils";
 </script>
 ```
 
 Moving an app over is a rewrite of its imports:
-`#lib/components/ui/button/index.js` becomes `@orochibraru/ui/button`.
+`#lib/components/ui/button/index.js` becomes `@zedensix/ui/button`.
 
 Primitives: accordion, alert, alert-dialog, avatar, badge, breadcrumb, button,
 button-group, calendar, card, checkbox, command, context-menu, dialog, drawer,
@@ -60,13 +60,13 @@ its label, keeping its width, so a pending submit can't be clicked twice.
 
 ## Components
 
-Under `@orochibraru/ui/components/<name>`: one import, data in. Where a
-primitive is assembled from parts, a component takes an array or an object and
-renders the whole thing, phones included.
+Under `@zedensix/ui/components/<name>`: one import, data in. Where a primitive
+is assembled from parts, a component takes an array or an object and renders the
+whole thing, phones included.
 
 ```svelte
 <script lang="ts">
-  import Input from "@orochibraru/ui/components/input";
+  import Input from "@zedensix/ui/components/input";
 </script>
 
 <Input label="Email" name="email" type="email" required bind:value={email} />
@@ -120,7 +120,7 @@ under its field; a toast narrates the submit:
 
 ## Blocks
 
-Under `@orochibraru/ui/blocks/<name>`:
+Under `@zedensix/ui/blocks/<name>`:
 
 | Block                 | What it does                                                                  |
 | --------------------- | ----------------------------------------------------------------------------- |
@@ -181,31 +181,31 @@ them, which apps put in their root layout.
 
 ## Modules
 
-- `@orochibraru/ui/utils`: `cn` and the shadcn-svelte prop helper types.
-- `@orochibraru/ui/toast`: `enhanceToast` and `saveToast` narrate a form action
+- `@zedensix/ui/utils`: `cn` and the shadcn-svelte prop helper types.
+- `@zedensix/ui/toast`: `enhanceToast` and `saveToast` narrate a form action
   through one promise toast, `toastError` turns anything thrown into a message.
   Form updates keep `reset: false` by default so `bind:value` fields survive a
   submit.
-- `@orochibraru/ui/page-title`: `providePageTitle` once in the root layout,
+- `@zedensix/ui/page-title`: `providePageTitle` once in the root layout,
   `setPageTitle` in pages, `usePageTitle` in app bars.
-- `@orochibraru/ui/appearance`: `applyAppearance` and `appearanceBootScript`
-  apply a saved accent, theme, dark variant, font and corner style to `<html>`,
-  the boot script before first paint.
-- `@orochibraru/ui/password`: `passwordRules` and `passwordScore`, the rules a
-  new password must pass and a 0 to 4 strength, the same on the form and the
-  server. `new-password-fields` renders them; `ruleLabels` translates them.
-- `@orochibraru/ui/server/logger`: `Logger` writes scoped lines as coloured text
-  or JSON lines (`LOG_FORMAT=json`) at `LOG_LEVEL` or above; `configureLogging`
+- `@zedensix/ui/appearance`: `applyAppearance` and `appearanceBootScript` apply
+  a saved accent, theme, dark variant, font and corner style to `<html>`, the
+  boot script before first paint.
+- `@zedensix/ui/password`: `passwordRules` and `passwordScore`, the rules a new
+  password must pass and a 0 to 4 strength, the same on the form and the server.
+  `new-password-fields` renders them; `ruleLabels` translates them.
+- `@zedensix/ui/server/logger`: `Logger` writes scoped lines as coloured text or
+  JSON lines (`LOG_FORMAT=json`) at `LOG_LEVEL` or above; `configureLogging`
   sets both in code. JSON lines carry the active trace and span ids.
-- `@orochibraru/ui/server/telemetry`: `Telemetry` starts OpenTelemetry tracing
-  over OTLP from `instrumentation.server.ts`; with `tracing: { server: true }`
-  in the kit options, SvelteKit's own spans go with it. Its SDK packages are
-  optional peer dependencies, installed only by apps that trace.
-- `@orochibraru/ui/server/hooks`: `requestLog` logs one line per request and
+- `@zedensix/ui/server/telemetry`: `Telemetry` starts OpenTelemetry tracing over
+  OTLP from `instrumentation.server.ts`; with `tracing: { server: true }` in the
+  kit options, SvelteKit's own spans go with it. Its SDK packages are optional
+  peer dependencies, installed only by apps that trace.
+- `@zedensix/ui/server/hooks`: `requestLog` logs one line per request and
   `unexpectedErrors` logs a crash, records it on the span and returns its trace
   id as the error id.
-- `@orochibraru/ui/haptics`: `haptic("tap" | "success" | "error")`, a no-op
-  where vibration isn't supported.
+- `@zedensix/ui/haptics`: `haptic("tap" | "success" | "error")`, a no-op where
+  vibration isn't supported.
 
 ## Theming
 
@@ -286,7 +286,7 @@ in, so an editor's assistant can list, search and read the components without
 the docs site. It runs over stdio from the package's `bin`:
 
 ```bash
-claude mcp add orochibraru-ui -- npx -y @orochibraru/ui
+claude mcp add zedensix-ui -- npx -y @zedensix/ui
 ```
 
 Cursor, VS Code and other clients take the same command:
@@ -294,7 +294,7 @@ Cursor, VS Code and other clients take the same command:
 ```json
 {
   "mcpServers": {
-    "orochibraru-ui": { "command": "npx", "args": ["-y", "@orochibraru/ui"] }
+    "zedensix-ui": { "command": "npx", "args": ["-y", "@zedensix/ui"] }
   }
 }
 ```

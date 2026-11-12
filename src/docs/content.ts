@@ -93,21 +93,18 @@ export function sourcesOf(
 /** Rewrites the repo's `#lib` imports to the package subpaths an app imports. */
 function publicImports(code: string): string {
 	return code
-		.replaceAll(
-			/#lib\/components\/ui\/([\w-]+)\/index\.js/g,
-			"@orochibraru/ui/$1",
-		)
+		.replaceAll(/#lib\/components\/ui\/([\w-]+)\/index\.js/g, "@zedensix/ui/$1")
 		.replaceAll(
 			/#lib\/components\/blocks\/([\w-]+)\.svelte/g,
-			"@orochibraru/ui/blocks/$1",
+			"@zedensix/ui/blocks/$1",
 		)
 		.replaceAll(
 			/#lib\/components\/kit\/([\w-]+)\.svelte/g,
-			"@orochibraru/ui/components/$1",
+			"@zedensix/ui/components/$1",
 		)
 		.replaceAll(
 			/#lib\/((?:server\/)?[\w-]+)(?:\.svelte)?\.js/g,
-			"@orochibraru/ui/$1",
+			"@zedensix/ui/$1",
 		);
 }
 
@@ -121,7 +118,7 @@ export function docMarkdown(content: Content, { group, doc }: Found): string {
 	return [
 		`# ${doc.name}`,
 		`> ${doc.description}`,
-		`Category: ${doc.category}. Import from \`@orochibraru/ui/${path}\`.`,
+		`Category: ${doc.category}. Import from \`@zedensix/ui/${path}\`.`,
 		files.length > 0 ? `## Usage\n\n${files.join("\n\n")}` : "",
 	]
 		.filter(Boolean)
@@ -140,9 +137,9 @@ export function llmsIndex(origin: string): string {
 				.join("\n")}`,
 	);
 	return [
-		"# @orochibraru/ui",
+		"# @zedensix/ui",
 		"> Svelte 5 components and the theme shared by OpenCount, LocalAssistant, Homerun, Sergio's, Nuvio Web and Penombre. SvelteKit 3, Svelte 5 runes, Tailwind CSS v4.",
-		`Everything in one file: ${origin}/llms-full.txt. An MCP server with the same content is at ${origin}/mcp, or runs locally with \`npx -y @orochibraru/ui\`.`,
+		`Everything in one file: ${origin}/llms-full.txt. An MCP server with the same content is at ${origin}/mcp, or runs locally with \`npx -y @zedensix/ui\`.`,
 		...sections,
 	].join("\n\n");
 }

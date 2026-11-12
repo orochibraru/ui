@@ -59,7 +59,7 @@
 </script>
 
 <ModeWatcher />
-<DocumentTitle appName="@orochibraru/ui" />
+<DocumentTitle appName="@zedensix/ui" />
 <TopLoadingBar />
 <Toaster />
 <Tooltip.Provider>
