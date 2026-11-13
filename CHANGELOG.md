@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/zedensix/ui/compare/v1.0.6...v1.0.7) (2026-11-12)
+
+### Bug Fixes
+
+* docs & refs (oro to zn6) ([d5bf502](https://github.com/zedensix/ui/commit/d5bf502801b2787dd35ec652b67e1844c42a5e9b))
+* rename the package to @zedensix/ui ([afd4502](https://github.com/zedensix/ui/commit/afd45027c08308456ba6c044bc591f3a2b3fe0e6))
+
 ## [1.0.6](https://github.com/zedensix/ui/compare/v1.0.5...v1.0.6) (2026-11-09)
 
 ## [1.0.5](https://github.com/zedensix/ui/compare/v1.0.4...v1.0.5) (2026-11-06)
