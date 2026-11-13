@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.8](https://github.com/zedensix/ui/compare/v1.0.7...v1.0.8) (2026-11-13)
+
 ## [1.0.7](https://github.com/zedensix/ui/compare/v1.0.6...v1.0.7) (2026-11-12)
 
 ### Bug Fixes
